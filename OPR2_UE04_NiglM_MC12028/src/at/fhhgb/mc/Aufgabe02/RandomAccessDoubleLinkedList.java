@@ -1,320 +1,302 @@
 package at.fhhgb.mc.Aufgabe02;
 
 /**
- * The RandomAccessDoubleLinkedList is an extension of the DoubleLinkedList. 
- * Now elements can be inserted and removed anywhere in the list instead of
- * the front and the back like it was before.
+ * The RandomAccessDoubleLinkedList is an extension of the DoubleLinkedList. Now
+ * elements can be inserted and removed anywhere in the list instead of the
+ * front and the back like it was before.
  * 
- * If elements are inserted at an bigger index than the lists size, then the list
- * will be filled with dummy nodes till the given index.
+ * If elements are inserted at an bigger index than the lists size, then the
+ * list will be filled with dummy nodes till the given index.
  * 
  * @author Michael Nigl
  * @version 1.0
  */
-public class RandomAccessDoubleLinkedList extends DoubleLinkedList { 
+public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 
 	/**
 	 * Initializes an empty list by calling the empty constructor of DLL.
 	 */
-	public RandomAccessDoubleLinkedList() { 
-		
+	public RandomAccessDoubleLinkedList() {
+
 		super();
-		
+
 	}
 
 	/**
-	 * Copy constructor which initializes the list with another list. 
-	 * By calling the Constructor of DLL where another list where 
-	 * another list can be given as transfer paramether
+	 * Copy constructor which initializes the list with another list. By calling
+	 * the Constructor of DLL where another list where another list can be given
+	 * as transfer paramether
 	 * 
-	 * @param other - the other list which is added to this one
+	 * @param other
+	 *            - the other list which is added to this one
 	 */
-	public RandomAccessDoubleLinkedList(RandomAccessDoubleLinkedList other) { 
-		
+	public RandomAccessDoubleLinkedList(RandomAccessDoubleLinkedList other) {
+
 		super(other);
-	
+
 	}
-	
+
 	/**
-	 * Inserts a new element with value val at the given index. If the index is larger 
-	 * than the current size, the list is padded with uninitialized DLNodes. 
+	 * Inserts a new element with value val at the given index. If the index is
+	 * larger than the current size, the list is padded with uninitialized
+	 * DLNodes.
 	 * 
-	 * Note: The index starts at "0". So the first element in the list is called 
+	 * Note: The index starts at "0". So the first element in the list is called
 	 * with the index 0.
 	 * 
-	 * @param index - the position where the new element is added into the list
-	 * @param val - the value of new element
+	 * @param index
+	 *            - the position where the new element is added into the list
+	 * @param val
+	 *            - the value of new element
 	 */
-	public void insertAt (int index, int val) { 
-		
-		
-		if(index < 0){
-			//do nothing if index < 0
+	public void insertAt(int index, int val) {
+
+		if (index < 0) {
+			// do nothing if index < 0
 			return;
-		}else{
+		} else {
 			DLNode n = new DLNode();
 			int compare = elements();
-			
-			if(compare == Integer.MIN_VALUE){
+
+			if (compare == Integer.MIN_VALUE) {
 				compare = 0;
 			}
 
-			if(compare < index){
-				
+			if (compare < index) {
+
 				int dummy_count = index - compare;
-				
-				if(head == null){
-					
+
+				if (head == null) {
+
 					head = n;
 					tail = n;
 					dummy_count--;
-					
-				}else{
-				
-					n = tail;
-					
-				}
-				
-				int i = 1;
-				while(i <= dummy_count){					
-				
-						
-						pushBack(Integer.MIN_VALUE);
-					
-					i ++;
-				
-					
-				}
-				
-				pushBack(val);
-				
-			}else{
-				
 
-				if(head == null){
-					
+				} else {
+
+					n = tail;
+
+				}
+
+				int i = 1;
+				while (i <= dummy_count) {
+
+					pushBack(Integer.MIN_VALUE);
+
+					i++;
+
+				}
+
+				pushBack(val);
+
+			} else {
+
+				if (head == null) {
+
 					pushFront(val);
-		
-				}else{
-					
+
+				} else {
+
 					int i = 0;
 					n = head;
-					while(i <= index ){
-						
-						if(i == index){
-							
-							if(index == 0){
-								
+					while (i <= index) {
+
+						if (i == index) {
+
+							if (index == 0) {
+
 								pushFront(val);
-								
-								
-							}else if(elements()==index){
-								
+
+							} else if (elements() == index) {
+
 								pushBack(val);
-								
-							}else if(n.isInitialized()==false){
-								
+
+							} else if (n.isInitialized() == false) {
+
 								n.setVal(val);
-								
-							}else{
-								
+
+							} else {
+
 								DLNode node = new DLNode();
 								node.setVal(val);
 								n.getPrev().setNext(node);
 								node.setPrev(n.getPrev());
 								node.setNext(n);
 								n.setPrev(node);
-								
+
 							}
 							i++;
-							
-						}else{
-							
+
+						} else {
+
 							i++;
 							n = n.getNext();
-							
+
 						}
 					}
-				
+
 				}
-				
-				
+
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Checks if an element with the searched value exists in the list.
 	 * 
-	 * @param val - the searched value
-	 * @return - true if an element with the given value exists, false otherwise. 
+	 * @param val
+	 *            - the searched value
+	 * @return - true if an element with the given value exists, false
+	 *         otherwise.
 	 */
-	public boolean contains (int val) {
-		
+	public boolean contains(int val) {
+
 		return search(val);
-		
+
 	}
-	
+
 	/**
-	 * Removes an element at the given index. 
+	 * Removes an element at the given index.
 	 * 
-	 * @param index - the index of the element to be removed
-	 * @return false is returned if index > list's, true otherwise. 
+	 * @param index
+	 *            - the index of the element to be removed
+	 * @return false is returned if index > list's, true otherwise.
 	 */
-	public boolean removeAt (int index) { 
-		
-		if(elements() < index || index < 0){
-			
+	public boolean removeAt(int index) {
+
+		if (elements() < index || index < 0) {
+
 			return false;
-			
-		}else{
-			
-			if(head == null){
-				
+
+		} else {
+
+			if (head == null) {
+
 				return false;
-				
-			}else{
-				
+
+			} else {
+
 				int i = 0;
 				DLNode n = head;
-				while(i <= index  && n != null){
-					
-					if(i == index){
-						
-						if(n.getPrev() == null){
-							
+				while (i <= index && n != null) {
+
+					if (i == index) {
+
+						if (n.getPrev() == null) {
+
 							popFront();
-							
-							
-						}else if(n.getNext()==null){
-							
+
+						} else if (n.getNext() == null) {
+
 							popBack();
-							
-						}else{
-							
+
+						} else {
+
 							n.getPrev().setNext(n.getNext());
 							n.getNext().setPrev(n.getPrev());
-							n=null;
+							n = null;
 							i++;
 						}
-						
-					}else{
-						
+
+					} else {
+
 						i++;
 						n = n.getNext();
-						
+
 					}
-					
-					
+
 				}
-				
+
 				return true;
-				
+
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * Removes all elements with the given value.
 	 * 
-	 * @param val - the value to be removed
-	 * @return - true if at least one element of the value was found and removed, false otherwise
+	 * @param val
+	 *            - the value to be removed
+	 * @return - true if at least one element of the value was found and
+	 *         removed, false otherwise
 	 */
-	public boolean removeAll (int val) { 
-		
-		if(head == null){
-			
+	public boolean removeAll(int val) {
+
+		if (head == null) {
 			return false;
-			
-		}else{
-						
+		} else {
 			boolean found = false;
 			DLNode n = head;
-			while(n != null){
-				
-				if(n.getVal()==val){	
-					
-					if(n.getPrev() == null){
-						
+
+			while (n != null) {
+				if (n.getVal() == val) {
+					if (n.getPrev() == null) {
 						head = n.getNext();
 						n.getNext().setPrev(null);
-						
-						
-					}else if(n.getNext()==null){
-						
+					} else if (n.getNext() == null) {
 						tail = n.getPrev();
 						n.getPrev().setNext(null);
-						
-					}else{
-						
+					} else {
 						n.getPrev().setNext(n.getNext());
 						n.getNext().setPrev(n.getPrev());
 					}
-					
 					found = true;
-					
 				}
-				
 				n = n.getNext();
-					
-				
-				
 			}
-			
+
 			return found;
-			
+
 		}
-		
 	}
-		
-	
+
 	/**
 	 * Returns the integer value at a given index.
 	 * 
-	 * @param index - the index of the element which's value is of interest
+	 * @param index
+	 *            - the index of the element which's value is of interest
 	 * @return - the value or Integer.MIN_VALUE if index > list's size
 	 */
-	public int elementAt(int index) { 
-		
-		if(elements() < index || index < 0){
-			
+	public int elementAt(int index) {
+
+		if (elements() < index || index < 0) {
+
 			return Integer.MIN_VALUE;
-			
-		}else{
-			
-			if(head == null){
-				
+
+		} else {
+
+			if (head == null) {
+
 				return Integer.MIN_VALUE;
-				
-			}else{
-				
+
+			} else {
+
 				int i = 0;
 				DLNode n = head;
-				while(i <= index  && n != null){
-					
-					if(i == index){
-						
+				while (i <= index && n != null) {
+
+					if (i == index) {
+
 						break;
-						
-						
-					}else{
-						
+
+					} else {
+
 						i++;
 						n = n.getNext();
-						
+
 					}
-					
-					
+
 				}
-				
+
 				return n.getVal();
-				
+
 			}
-			
+
 		}
-		
+
 	}
 }
