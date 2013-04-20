@@ -19,6 +19,8 @@ package at.fhhgb.mc.Aufgabe01;
  */
 public class BinarySearchTree {
 
+	// test comment
+	
 	/** Inner class for the binary tree node. **/
 	protected class BinaryTreeNode {
 
