@@ -1,6 +1,9 @@
-package at.fhhgb.mc.Aufgabe02;
+package at.fhhgb.mc.Aufgabe02.Member;
 
-public class Section {
+import at.fhhgb.mc.Aufgabe02.BinarySearchTree;
+import at.fhhgb.mc.Aufgabe02.Abstract.Member;
+
+public class Section extends Member{
 	
 	private BinarySearchTree tree;
 	
