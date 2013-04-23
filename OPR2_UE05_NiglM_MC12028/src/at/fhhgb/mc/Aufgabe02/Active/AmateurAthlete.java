@@ -9,6 +9,11 @@ public class AmateurAthlete extends ActiveMember{
 		super(name,120,aktivity*2.5*12);
 	}
 	
+	public void setCosts(int activity){
+		setActivity(activity);
+		super.setCosts(getActivity()*2.5*12);
+	}
+	
 	public String toString(boolean ascending){
 		String check;
 		if(getSurplus() >= 0){

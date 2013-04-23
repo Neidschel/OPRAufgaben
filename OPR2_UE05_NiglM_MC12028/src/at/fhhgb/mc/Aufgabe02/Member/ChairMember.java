@@ -4,9 +4,29 @@ import at.fhhgb.mc.Aufgabe02.Abstract.AbstractMember;
 
 
 public class ChairMember extends AbstractMember{
+	private int kompetence;
 	
-	public ChairMember(String name, int kompetenz){
-		super(name,100*kompetenz,20*kompetenz);
+	public ChairMember(String name, int kompetence){
+		super(name,100*kompetence,20*kompetence);
+		this.kompetence = kompetence;
+	}
+	
+	public void setKompetenz(int kompetence){
+		if(kompetence < 0){
+			this.kompetence = 0;
+		}else if(kompetence > 10){
+			this.kompetence = 10;
+		}else{
+			this.kompetence = kompetence;
+		}
+		
+		setIncome(100*kompetence);
+		setCosts(20*kompetence);
+		
+	}
+	
+	public int getKompetenz(){
+		return kompetence;
 	}
 	
 	public String toString(boolean ascending){

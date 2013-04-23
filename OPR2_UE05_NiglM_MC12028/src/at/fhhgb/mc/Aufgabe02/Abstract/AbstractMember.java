@@ -12,12 +12,24 @@ public abstract class AbstractMember implements Comparable<AbstractMember>{
 		this.costs = costs;
 	}
 	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public String getName(){
 		return name;
 	}
 	
+	public void setIncome(double income){
+		this.income = income;
+	}
+	
 	public double getIncome(){
 		return income;
+	}
+	
+	public void setCosts(double costs){
+		this.costs = costs;
 	}
 	
 	public double getCosts(){
