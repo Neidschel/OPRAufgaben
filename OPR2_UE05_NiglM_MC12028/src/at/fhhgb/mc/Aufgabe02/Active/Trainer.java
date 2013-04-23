@@ -12,11 +12,13 @@ public class Trainer extends ActiveMember{
 	public String toString(boolean ascending){
 		String check;
 		if(getSurplus() >= 0){
-			check = " earns";
+			check = " earns ";
 		}else{
-			check = " costs";
+			check = " costs ";
 		}
-		return "Trainer: "+getName()+check+" for the club.";
+		StringBuilder output = new StringBuilder();
+		output.append("Trainer: "+getName()+check+getSurplus()+" for the club.");
+		return output.toString();
 	}
 	
 }

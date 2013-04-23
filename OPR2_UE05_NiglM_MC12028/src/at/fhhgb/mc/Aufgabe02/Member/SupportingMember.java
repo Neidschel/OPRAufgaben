@@ -12,10 +12,12 @@ public class SupportingMember extends AbstractMember{
 	public String toString(boolean ascending){
 		String check;
 		if(getSurplus() >= 0){
-			check = " earns";
+			check = " earns ";
 		}else{
-			check = " costs";
+			check = " costs ";
 		}
-		return "SupportingMember: "+getName()+check+" for the club.";
+		StringBuilder output = new StringBuilder();
+		output.append("SupportingMember "+getName()+check+getSurplus()+" for the club.");
+		return output.toString();
 	}
 }

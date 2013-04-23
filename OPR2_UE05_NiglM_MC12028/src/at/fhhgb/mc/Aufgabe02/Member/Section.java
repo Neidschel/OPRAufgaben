@@ -23,12 +23,12 @@ public class Section extends AbstractMember{
 		}else{
 			Comparable[] array = tree.toArray(true);
 			for(int i = 0; i < array.length;i++){
-		//		if (array instanceof AbstractMember[]) {
+				if (array instanceof AbstractMember[]) {
 					if( ((AbstractMember) array[i]).getName().equals(m.getName())){
 						return false;
 					}
 					
-			//	}
+				}
 					
 			}
 			
@@ -108,11 +108,9 @@ public class Section extends AbstractMember{
 		output.append(" "+"It has the following Members: "+"\n");
 		
 		for(int i = 0; i < array.length;i++){
-			if (array instanceof AbstractMember[]) {
-				output.append(" "+((AbstractMember) array[i]).toString());
-			}
+			output.append(" "+((AbstractMember) array[i]).toString(true)+"\n");
 		}
-		
+
 		return output.toString();
 		
 	}
