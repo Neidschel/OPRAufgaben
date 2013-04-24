@@ -1,4 +1,4 @@
-package at.fhhgb.mc.Aufgabe02test;
+package at.fhhgb.mc.Aufgabe02test.Member;
 
 import static org.junit.Assert.*;
 
@@ -6,17 +6,19 @@ import org.junit.Test;
 
 import at.fhhgb.mc.Aufgabe02.Active.*;
 import at.fhhgb.mc.Aufgabe02.Member.*;
-import at.fhhgb.mc.Aufgabe02.Abstract.*;
 
-public class TrainerTest {
+public class SectionTest {
 
 	@Test
-	public void testToStringTrainer() {
-
-		Trainer person = new Trainer("Sepp Maier",5);
-		System.out.println(person.toString(true));
+	public void testSetIncome() {
+		fail("Not yet implemented");
 	}
-	
+
+	@Test
+	public void testSetCosts() {
+		fail("Not yet implemented");
+	}
+
 	@Test
 	public void testToStringSection() {
 
@@ -38,12 +40,27 @@ public class TrainerTest {
 		
 		section1.addMember(section2);
 		
-		System.out.println(section1.toString(false));
+		System.out.println(section1.toString(true));
 	}
 
-	
+
 	@Test
-	public void testTrainer() {
+	public void testSection() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRemoveMember() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsMember() {
 		fail("Not yet implemented");
 	}
 
