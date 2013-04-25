@@ -20,7 +20,8 @@ public abstract class AbstractMember implements Comparable<AbstractMember> {
 	 * initializing the name, income and costs.
 	 * 
 	 * @param name
-	 *            the name of the section or the member
+	 *            the name of the section or the member or failfailfail if the
+	 *            name was null
 	 * @param income
 	 *            the money the member earns or the money the section has
 	 *            because of its members
@@ -29,7 +30,11 @@ public abstract class AbstractMember implements Comparable<AbstractMember> {
 	 *            section
 	 */
 	public AbstractMember(String name, double income, double costs) {
-		this.name = name;
+		if (name == null) {
+			this.name = "failfailfail";
+		} else {
+			this.name = name;
+		}
 		this.income = income;
 		this.costs = costs;
 	}
@@ -85,12 +90,12 @@ public abstract class AbstractMember implements Comparable<AbstractMember> {
 	}
 
 	/**
-	 * Prints the Member or the Section with all it's Member hierarchically
+	 * Prints the Member or the Section with all it's Members hierarchically
 	 * below it.
 	 * 
 	 * @param ascending
 	 *            true of the Members of the different Section are sorted
-	 *            ascending, false otherwise
+	 *            ascending by their surplus, false otherwise
 	 * @return a String representation of the Section and Members
 	 */
 	public abstract String toString(boolean ascending);

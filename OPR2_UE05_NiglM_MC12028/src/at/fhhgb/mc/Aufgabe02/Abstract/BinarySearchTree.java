@@ -200,11 +200,17 @@ public class BinarySearchTree {
 	 * 
 	 * @param tree
 	 *            the elements for the new balanced tree
+	 * @return true if the array became the new tree, false otherwise
 	 */
-	public void balance(Comparable[] tree) {
-		root = null;
-		size = 0;
-		newInsert(0, tree.length - 1, tree);
+	public boolean balance(Comparable[] tree) {
+		if (tree == null) {
+			return false;
+		} else {
+			root = null;
+			size = 0;
+			newInsert(0, tree.length - 1, tree);
+			return true;
+		}
 	}
 
 	/**
