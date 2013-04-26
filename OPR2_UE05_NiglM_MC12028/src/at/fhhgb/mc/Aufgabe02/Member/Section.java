@@ -42,7 +42,8 @@ public class Section extends AbstractMember {
 	 *         the transfer parameter; true if the insertion was successful
 	 */
 	public boolean addMember(AbstractMember m) {
-		if (m == null || ((AbstractMember) m).getName().equals("failfailfail") || this.getName().equals("failfailfail")) {
+		if (m == null || ((AbstractMember) m).getName().equals("failfailfail")
+				|| this.getName().equals("failfailfail")) {
 			return false;
 		}
 		if (tree == null) {
@@ -181,6 +182,58 @@ public class Section extends AbstractMember {
 		}
 	}
 
+	/**
+	 * Searches the section and all of it's subsections for a member by it's
+	 * name.
+	 * 
+	 * @param name
+	 *            the member who is searched
+	 * @param recursive
+	 *            true if all of the subsections should be searched, false
+	 *            otherwise
+	 * @return true if the member was found, false otherwise
+	 */
+	public boolean isMember(String name, boolean recursive) {
+		if (tree == null || name == null) {
+			return false;
+		} else if (recursive == false) {
+			return isMember(name);
+		} else {
+			return isMember(name, this);
+		}
+	}
+
+	/**
+	 * A helping method for isMember() of the section to make sure that all
+	 * sections and it's subsections are searched for the Member.
+	 * 
+	 * @param name
+	 *            the member who is searched
+	 * @param s
+	 *            the section and subsection which are searched
+	 * @return true if the member was found in any of the sections, false
+	 *         otherwise
+	 */
+	private boolean isMember(String name, Section s) {
+		Comparable[] array = s.tree.toArray(true);
+
+		for (int i = 0; i < array.length; i++) {
+			if (((AbstractMember) array[i]) instanceof Section) {
+				boolean found = isMember(name, ((Section) array[i]));
+				if (found == true) {
+					return true;
+				}
+			} else {
+				if (((AbstractMember) array[i]).getName().equals(name)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -207,7 +260,7 @@ public class Section extends AbstractMember {
 	 *            true if the output is sorted ascending, false if the output is
 	 *            sorted descending.
 	 * @param s
-	 *            the subsection which members are printed
+	 *            the section and subsections which members are printed
 	 * @param offset
 	 *            counts the recursive to know how many indentations have to be
 	 *            done
