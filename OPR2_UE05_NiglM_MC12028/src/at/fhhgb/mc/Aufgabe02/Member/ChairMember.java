@@ -23,9 +23,10 @@ public class ChairMember extends AbstractMember {
 	 *            the competence of the member which determines the costs and
 	 *            the income
 	 */
-	public ChairMember(String name, int kompetence) {
-		super(name, 100 * kompetence, 20 * kompetence);
-		this.competence = kompetence;
+	public ChairMember(String name, int competence) {
+		super(name, 100 * competence, 20 * competence);
+		setCompetence(competence);
+		this.competence = competence;
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class ChairMember extends AbstractMember {
 	 * @param competence
 	 *            the competence of the chair member
 	 */
-	public void setKompetenz(int competence) {
+	public void setCompetence(int competence) {
 		if (competence < 0) {
 			this.competence = 0;
 		} else if (competence > 10) {
@@ -48,12 +49,12 @@ public class ChairMember extends AbstractMember {
 			this.competence = competence;
 		}
 
-		setIncome(100 * competence);
-		setCosts(20 * competence);
+		setIncome(100 * this.competence);
+		setCosts(20 * this.competence);
 
 	}
 
-	public int getKompetenz() {
+	public int getCompetence() {
 		return competence;
 	}
 

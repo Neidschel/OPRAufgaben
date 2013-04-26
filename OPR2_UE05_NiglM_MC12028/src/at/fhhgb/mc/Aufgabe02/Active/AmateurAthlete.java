@@ -17,23 +17,23 @@ public class AmateurAthlete extends ActiveMember {
 	 * 
 	 * @param name
 	 *            the name of the new member
-	 * @param aktivity
+	 * @param activity
 	 *            the activity of the member which determines the costs
 	 */
-	public AmateurAthlete(String name, int aktivity) {
-		super(name, 120, aktivity * 2.5 * 12);
+	public AmateurAthlete(String name, int activity) {
+		super(name, 120, activity * 2.5 * 12);
+		setActivity(activity);
 	}
 
 	/**
-	 * Overwrites the Costs of the AbstractMember because the activity value has
-	 * to be considered.
+	 * Overwrites the setActivity of the ActiveMember to determine the new costs.
 	 * 
 	 * @param activity
 	 *            the activity value of the active member
 	 */
-	public void setCosts(int activity) {
-		setActivity(activity);
-		super.setCosts(getActivity() * 2.5 * 12);
+	public void setActivity(int activity) {
+		super.setActivity(activity);
+		setCosts(getActivity() * 2.5 * 12);
 	}
 
 	/*

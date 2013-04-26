@@ -22,18 +22,18 @@ public class TopAthlete extends ActiveMember{
 	 */
 	public TopAthlete(String name,int aktivity){
 		super(name,120,aktivity*5*12);
+		setActivity(aktivity);
 	}
 	
 	/**
-	 * Overwrites the Costs of the TopMember because the activity value has
-	 * to be considered.
+	 * Overwrites the setActivity of the ActiveMember to determine the new costs.
 	 * 
 	 * @param activity
 	 *            the activity value of the active member
 	 */
-	public void setCosts(int activity){
-		setActivity(activity);
-		super.setCosts(getActivity()*5*12);
+	public void setActivity(int activity){
+		super.setActivity(activity);
+		setCosts(getActivity()*5*12);
 	}
 	
 	/* (non-Javadoc)

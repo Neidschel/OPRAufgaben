@@ -21,6 +21,7 @@ public class SupportingMember extends AbstractMember{
 		super(name,100,15.0);
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see at.fhhgb.mc.Aufgabe02.Abstract.AbstractMember#toString(boolean)
 	 */

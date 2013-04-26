@@ -22,18 +22,18 @@ public class Trainer extends ActiveMember{
 	 */
 	public Trainer(String name,int aktivity){
 		super(name,120,aktivity*40*12);
+		setActivity(aktivity);
 	}
 	
 	/**
-	 * Overwrites the Costs of the trainer because the activity value has
-	 * to be considered.
+	 * Overwrites the setActivity of the ActiveMember to determine the new costs.
 	 * 
 	 * @param activity
-	 *            the activity value of the trainer
+	 *            the activity value of the active member
 	 */
-	public void setCosts(int activity){
-		setActivity(activity);
-		super.setCosts(getActivity()*40*12);
+	public void setActivity(int activity){
+		super.setActivity(activity);
+		setCosts(getActivity()*40*12);
 	}
 	
 	/* (non-Javadoc)
