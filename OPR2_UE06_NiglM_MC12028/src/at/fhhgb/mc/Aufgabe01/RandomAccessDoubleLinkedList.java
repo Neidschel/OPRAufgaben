@@ -180,36 +180,36 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 				int i = 0;
 				DLNode n = head;
 				while (i <= index && n != null) {
-
 					if (i == index) {
-
 						if (n.getPrev() == null) {
-
-							popFront();
+						
+							try{
+								popFront();
+							}catch(InvalidAccessException ex){
+								System.out.println(ex.getMessage());
+								ex.printStackTrace();
+							}
 
 						} else if (n.getNext() == null) {
-
-							popBack();
-
+							try{
+								popBack();
+							}catch(InvalidAccessException ex){
+								System.out.println(ex.getMessage());
+								ex.printStackTrace();
+							}
+							
 						} else {
-
 							n.getPrev().setNext(n.getNext());
 							n.getNext().setPrev(n.getPrev());
 							n = null;
 							i++;
 						}
-
 					} else {
-
 						i++;
 						n = n.getNext();
-
 					}
-
 				}
-
 				return true;
-
 			}
 
 		}
