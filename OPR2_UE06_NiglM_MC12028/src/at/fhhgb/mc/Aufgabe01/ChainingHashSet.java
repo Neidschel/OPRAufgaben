@@ -8,7 +8,7 @@ package at.fhhgb.mc.Aufgabe01;
  * put into the calculated overflow list. 
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 public class ChainingHashSet {
 
@@ -52,9 +52,8 @@ public class ChainingHashSet {
 	 * in the hashtable.
 	 * 
 	 * @param val - the value to be inserted into the hashtable
-	 * @return - true if the element didn't exist and was inserted, false otherwise
 	 */
-	public boolean insert (int val) { 
+	public void insert (int val) throws ValueException{ 
 		
 		int hash = Math.abs(val%array.length);
 		
@@ -66,12 +65,11 @@ public class ChainingHashSet {
 		
 		if(array[hash].contains(val)==true){
 			
-			return false;
+			throw new ValueException("The value is already stored.",val);
 			
 		}else{
 			
 			array[hash].pushBack(val);
-			return true;
 			
 		}
 		
@@ -129,15 +127,15 @@ public class ChainingHashSet {
 	 * @return - the number of elements stored in the list or INTEGER.Min_Value if there
 	 * are no elements
 	 */
-	public int getOverflowCount(int hashVal) { 
+	public int getOverflowCount(int hashVal) throws ValueException{ 
 		
-		if(hashVal < 0){
+		if(hashVal < 0 || hashVal > array.length-1){
 			
-			return Integer.MIN_VALUE;
+			throw new ValueException("The hashValue is invalid!",hashVal);
 			
-		}else if(hashVal > array.length-1 || array[hashVal]==null){
+		}else if(array[hashVal]==null){
 			
-			return Integer.MIN_VALUE;
+			throw new ValueException("The list in this hashvalue is not yet initialized!",hashVal);
 			
 		}else{
 		

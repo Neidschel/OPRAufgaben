@@ -14,7 +14,7 @@ package at.fhhgb.mc.Aufgabe02.Abstract;
  * bottom of the tree.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  * 
  */
 public class BinarySearchTree {
@@ -40,6 +40,16 @@ public class BinarySearchTree {
 
 	/** Number of elements stored in the tree. */
 	protected int size;
+	
+	public static boolean isComparable(Comparable _c1, Comparable _c2){
+		try{
+			_c1.compareTo(_c2);
+			return true;
+		}
+		catch(ClassCastException _e){
+			return false;
+		}
+	}
 
 	/**
 	 * Inserts the given element. Duplicate elements are not allowed.
@@ -48,9 +58,10 @@ public class BinarySearchTree {
 	 *            - value of the element to be inserted
 	 * @return - true if insertion was successful; false otherwise.
 	 */
-	public boolean insert(Comparable elem) {
-
-		if (root == null) {
+	public boolean insert(Comparable elem) throws ValueException, NullPointerException{
+		if(elem == null){
+			throw new NullPointerException("Nullpointer during insert");
+		}else if (root == null) {
 
 			root = new BinaryTreeNode(elem);
 			size++;
@@ -75,8 +86,12 @@ public class BinarySearchTree {
 	 *            - value of the element to be inserted
 	 * @return - true if insertion was successful; false otherwise.
 	 */
-	private boolean insert(BinaryTreeNode node, Comparable elem) {
-
+	private boolean insert(BinaryTreeNode node, Comparable elem) throws ValueException{
+		
+		if(isComparable(node.data,elem)==false){
+			throw new ValueException("The transfer parameter for insert is not Comparable!",elem.toString());
+		}
+		
 		if (node.data.compareTo(elem) > 0) {
 
 			if (node.left != null) {
@@ -121,9 +136,11 @@ public class BinarySearchTree {
 	 *            - the value which is searched in the tree
 	 * @return - true if the value could be found, false otherwise.
 	 */
-	public boolean find(Comparable key) {
-
-		if (root == null) {
+	public boolean find(Comparable key) throws ValueException, NullPointerException{
+		
+		if(key == null){
+			throw new NullPointerException("Nullpointer during find");
+		}else if (root == null) {
 
 			return false;
 
@@ -149,8 +166,12 @@ public class BinarySearchTree {
 	 *            - value of the searched element
 	 * @return - true if the value could be found, false otherwise.
 	 */
-	private boolean find(BinaryTreeNode node, Comparable key) {
-
+	private boolean find(BinaryTreeNode node, Comparable key) throws ValueException{
+		
+		if(isComparable(node.data,key)==false){
+			throw new ValueException("The transfer parameter for find is not Comparable!",key.toString());
+		}
+		
 		if (node.data.compareTo(key) > 0) {
 
 			if (node.left != null) {
@@ -229,7 +250,13 @@ public class BinarySearchTree {
 	private void newInsert(int low, int high, Comparable[] tree) {
 		if (low <= high) {
 			int middle = (low + high) / 2;
-			insert(tree[middle]);
+			try{
+				insert(tree[middle]);
+			}catch(NullPointerException e){
+				System.out.println(e.getMessage());
+			}catch(ValueException e){
+				System.out.println(e.getMessage());
+			}
 			newInsert(low, middle - 1, tree);
 			newInsert(middle + 1, high, tree);
 		}
@@ -244,9 +271,11 @@ public class BinarySearchTree {
 	 * @return - true if the key could be found and was removed, false
 	 *         otherwise.
 	 */
-	public boolean remove(Comparable key) {
-
-		if (root == null) {
+	public boolean remove(Comparable key) throws ValueException, NullPointerException{
+		
+		if(key == null){
+			throw new NullPointerException("Nullpointer during remove");
+		}else if (root == null) {
 
 			return false;
 
@@ -308,8 +337,12 @@ public class BinarySearchTree {
 	 *         otherwise.
 	 */
 	private boolean remove(BinaryTreeNode node, BinaryTreeNode head,
-			Comparable key) {
-
+			Comparable key) throws ValueException{
+		
+		if(isComparable(node.data,key)==false){
+			throw new ValueException("The transfer parameter for remove is not Comparable!",key.toString());
+		}
+		
 		if (node.data.compareTo(key) > 0) {
 
 			if (node.left != null) {
@@ -423,7 +456,13 @@ public class BinarySearchTree {
 		// deletes the node and inserts its value once again
 		node = null;
 		size--;
-		insert(val);
+		try{
+			insert(val);
+		}catch(NullPointerException e){
+			System.out.println(e.getMessage());
+		}catch(ValueException e){
+			System.out.println(e.getMessage());
+		}
 
 	}
 
@@ -572,6 +611,7 @@ public class BinarySearchTree {
 		}
 
 	}
+	
 
 	/**
 	 * Searches for the element with the lowest value in the tree

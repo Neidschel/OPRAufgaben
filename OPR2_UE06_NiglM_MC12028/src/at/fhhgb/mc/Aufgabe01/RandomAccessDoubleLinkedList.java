@@ -9,7 +9,7 @@ package at.fhhgb.mc.Aufgabe01;
  * list will be filled with dummy nodes till the given index.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 
@@ -48,12 +48,13 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 *            - the position where the new element is added into the list
 	 * @param val
 	 *            - the value of new element
+	 * @throws InvalidAccessException
+	 *             Exception is thrown when the index is invalid
 	 */
-	public void insertAt(int index, int val) {
+	public void insertAt(int index, int val) throws InvalidAccessException {
 
 		if (index < 0) {
-			// do nothing if index < 0
-			return;
+			throw new InvalidAccessException("Invalid index used");
 		} else {
 			DLNode n = new DLNode();
 			int compare = elements();
@@ -162,18 +163,22 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 * @param index
 	 *            - the index of the element to be removed
 	 * @return false is returned if index > list's, true otherwise.
+	 * @throws InvalidAccessException
+	 *             Exception is thrown when the index is invalid or the list is
+	 *             empty
 	 */
-	public boolean removeAt(int index) {
+	public boolean removeAt(int index) throws InvalidAccessException {
 
 		if (elements() < index || index < 0) {
 
-			return false;
+			throw new InvalidAccessException("Invalid index used");
 
 		} else {
 
 			if (head == null) {
 
-				return false;
+				throw new InvalidAccessException(
+						"Can't search in an empty list");
 
 			} else {
 
@@ -181,23 +186,26 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 				DLNode n = head;
 				while (i <= index && n != null) {
 					if (i == index) {
+						if(n.isInitialized()==false){
+							return false;
+						}
 						if (n.getPrev() == null) {
-						
-							try{
+
+							try {
 								popFront();
-							}catch(InvalidAccessException ex){
+							} catch (InvalidAccessException ex) {
 								System.out.println(ex.getMessage());
 								ex.printStackTrace();
 							}
 
 						} else if (n.getNext() == null) {
-							try{
+							try {
 								popBack();
-							}catch(InvalidAccessException ex){
+							} catch (InvalidAccessException ex) {
 								System.out.println(ex.getMessage());
 								ex.printStackTrace();
 							}
-							
+
 						} else {
 							n.getPrev().setNext(n.getNext());
 							n.getNext().setPrev(n.getPrev());
@@ -234,6 +242,7 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 
 			while (n != null) {
 				if (n.getVal() == val) {
+
 					if (n.getPrev() == null) {
 						head = n.getNext();
 						n.getNext().setPrev(null);
@@ -260,18 +269,22 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 * @param index
 	 *            - the index of the element which's value is of interest
 	 * @return - the value or Integer.MIN_VALUE if index > list's size
+	 * @throws InvalidAccessException
+	 *             Exception is thrown when the index is invalid or the list is
+	 *             empty
 	 */
-	public int elementAt(int index) {
+	public int elementAt(int index) throws InvalidAccessException {
 
 		if (elements() < index || index < 0) {
 
-			return Integer.MIN_VALUE;
+			throw new InvalidAccessException("Invalid index used");
 
 		} else {
 
 			if (head == null) {
 
-				return Integer.MIN_VALUE;
+				throw new InvalidAccessException(
+						"Can't search in an empty list");
 
 			} else {
 

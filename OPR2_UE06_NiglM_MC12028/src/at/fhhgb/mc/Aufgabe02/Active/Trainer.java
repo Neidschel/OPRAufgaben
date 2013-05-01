@@ -1,6 +1,7 @@
 package at.fhhgb.mc.Aufgabe02.Active;
 
-import at.fhhgb.mc.Aufgabe02.Abstract.ActiveMember;
+import at.fhhgb.mc.Aufgabe02.Abstract.*;
+import at.fhhgb.mc.Aufgabe02.Abstract.ValueException;
 
 /**
  * Implements a Trainer Object where the activity of the trainer
@@ -20,7 +21,7 @@ public class Trainer extends ActiveMember{
 	 * @param aktivity
 	 *            the activity of the member which determines the costs
 	 */
-	public Trainer(String name,int aktivity){
+	public Trainer(String name,int aktivity) throws ValueException{
 		super(name,120,aktivity*40*12);
 		setActivity(aktivity);
 	}
@@ -30,8 +31,10 @@ public class Trainer extends ActiveMember{
 	 * 
 	 * @param activity
 	 *            the activity value of the active member
+	 * @throws ValueException 
 	 */
-	public void setActivity(int activity){
+	public void setActivity(int activity) throws ValueException{
+		
 		super.setActivity(activity);
 		setCosts(getActivity()*40*12);
 	}

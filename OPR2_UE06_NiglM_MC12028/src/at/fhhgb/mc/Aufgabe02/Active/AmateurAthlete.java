@@ -1,6 +1,6 @@
 package at.fhhgb.mc.Aufgabe02.Active;
 
-import at.fhhgb.mc.Aufgabe02.Abstract.ActiveMember;
+import at.fhhgb.mc.Aufgabe02.Abstract.*;
 
 /**
  * Implements an AmateurAthlete member Object where the activity of the member
@@ -20,7 +20,7 @@ public class AmateurAthlete extends ActiveMember {
 	 * @param activity
 	 *            the activity of the member which determines the costs
 	 */
-	public AmateurAthlete(String name, int activity) {
+	public AmateurAthlete(String name, int activity) throws ValueException{
 		super(name, 120, activity * 2.5 * 12);
 		setActivity(activity);
 	}
@@ -30,8 +30,9 @@ public class AmateurAthlete extends ActiveMember {
 	 * 
 	 * @param activity
 	 *            the activity value of the active member
+	 * @throws ValueException 
 	 */
-	public void setActivity(int activity) {
+	public void setActivity(int activity) throws ValueException{
 		super.setActivity(activity);
 		setCosts(getActivity() * 2.5 * 12);
 	}

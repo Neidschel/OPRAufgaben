@@ -1,5 +1,6 @@
 package at.fhhgb.mc.Aufgabe02.Abstract;
 
+
 /**
  * An abstract class for the active members mainly used to store the activity value 
  * which determines their costs.
@@ -36,11 +37,9 @@ public abstract class ActiveMember extends AbstractMember {
 	 * @param activity
 	 *            the activity of the active member
 	 */
-	public void setActivity(int activity) {
-		if (activity < 0) {
-			this.activity = 0;
-		} else if (activity > 10) {
-			this.activity = 10;
+	public void setActivity(int activity) throws ValueException{
+		if (activity < 0 || activity > 10) {
+			throw new ValueException("The activity wasn't in the valid range of 0-10.",activity);
 		} else {
 			this.activity = activity;
 		}

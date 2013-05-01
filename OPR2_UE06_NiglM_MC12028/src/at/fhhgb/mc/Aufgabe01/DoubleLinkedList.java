@@ -15,7 +15,7 @@ package at.fhhgb.mc.Aufgabe01;
  * containing element.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 
 public class DoubleLinkedList {

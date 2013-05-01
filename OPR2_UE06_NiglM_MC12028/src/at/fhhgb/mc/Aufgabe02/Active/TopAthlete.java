@@ -1,6 +1,7 @@
 package at.fhhgb.mc.Aufgabe02.Active;
 
 import at.fhhgb.mc.Aufgabe02.Abstract.ActiveMember;
+import at.fhhgb.mc.Aufgabe02.Abstract.ValueException;
 
 /**
  * Implements an TopAthlete member Object where the activity of the member
@@ -20,7 +21,7 @@ public class TopAthlete extends ActiveMember{
 	 * @param aktivity
 	 *            the activity of the member which determines the costs
 	 */
-	public TopAthlete(String name,int aktivity){
+	public TopAthlete(String name,int aktivity) throws ValueException{
 		super(name,120,aktivity*5*12);
 		setActivity(aktivity);
 	}
@@ -31,7 +32,7 @@ public class TopAthlete extends ActiveMember{
 	 * @param activity
 	 *            the activity value of the active member
 	 */
-	public void setActivity(int activity){
+	public void setActivity(int activity) throws ValueException{
 		super.setActivity(activity);
 		setCosts(getActivity()*5*12);
 	}

@@ -1,7 +1,6 @@
 package at.fhhgb.mc.Aufgabe02.Member;
 
-import at.fhhgb.mc.Aufgabe02.Abstract.AbstractMember;
-import at.fhhgb.mc.Aufgabe02.Abstract.BinarySearchTree;
+import at.fhhgb.mc.Aufgabe02.Abstract.*;
 
 /**
  * This class represents a section which can store members and other subsections
@@ -41,7 +40,7 @@ public class Section extends AbstractMember {
 	 * @return false if the member already existed or if there was no member in
 	 *         the transfer parameter; true if the insertion was successful
 	 */
-	public boolean addMember(AbstractMember m) {
+	public boolean addMember(AbstractMember m) throws ValueException, NullPointerException{
 		if (m == null || ((AbstractMember) m).getName().equals("failfailfail")
 				|| this.getName().equals("failfailfail")) {
 			return false;

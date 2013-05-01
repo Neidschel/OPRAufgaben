@@ -1,6 +1,6 @@
 package at.fhhgb.mc.Aufgabe02.Member;
 
-import at.fhhgb.mc.Aufgabe02.Abstract.AbstractMember;
+import at.fhhgb.mc.Aufgabe02.Abstract.*;
 
 /**
  * Implements a chair member Object where the kompetence of the member
@@ -23,9 +23,13 @@ public class ChairMember extends AbstractMember {
 	 *            the competence of the member which determines the costs and
 	 *            the income
 	 */
-	public ChairMember(String name, int competence) {
+	public ChairMember(String name, int competence) throws ValueException{
 		super(name, 100 * competence, 20 * competence);
-		setCompetence(competence);
+		try{
+			setCompetence(competence);
+		}catch(ValueException ex){
+			setCompetence(0);
+		}
 		this.competence = competence;
 	}
 
@@ -40,11 +44,9 @@ public class ChairMember extends AbstractMember {
 	 * @param competence
 	 *            the competence of the chair member
 	 */
-	public void setCompetence(int competence) {
-		if (competence < 0) {
-			this.competence = 0;
-		} else if (competence > 10) {
-			this.competence = 10;
+	public void setCompetence(int competence) throws ValueException{
+		if (competence < 0 || competence > 10) {
+			throw new ValueException("The competance wasn't in the valid range of 0-10.",competence);
 		} else {
 			this.competence = competence;
 		}
