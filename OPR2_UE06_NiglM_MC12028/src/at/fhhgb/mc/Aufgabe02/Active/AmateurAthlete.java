@@ -7,7 +7,7 @@ import at.fhhgb.mc.Aufgabe02.Abstract.*;
  * determines the costs.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 public class AmateurAthlete extends ActiveMember {
 
@@ -19,20 +19,24 @@ public class AmateurAthlete extends ActiveMember {
 	 *            the name of the new member
 	 * @param activity
 	 *            the activity of the member which determines the costs
+	 * @throws ValueException
+	 *             if the activity isn't in the valid range of 0-10
 	 */
-	public AmateurAthlete(String name, int activity) throws ValueException{
+	public AmateurAthlete(String name, int activity) throws ValueException {
 		super(name, 120, activity * 2.5 * 12);
 		setActivity(activity);
 	}
 
 	/**
-	 * Overwrites the setActivity of the ActiveMember to determine the new costs.
+	 * Overwrites the setActivity of the ActiveMember to determine the new
+	 * costs.
 	 * 
 	 * @param activity
 	 *            the activity value of the active member
-	 * @throws ValueException 
+	 * @throws ValueException
+	 *             if the activity isn't in the valid range of 0-10
 	 */
-	public void setActivity(int activity) throws ValueException{
+	public void setActivity(int activity) throws ValueException {
 		super.setActivity(activity);
 		setCosts(getActivity() * 2.5 * 12);
 	}

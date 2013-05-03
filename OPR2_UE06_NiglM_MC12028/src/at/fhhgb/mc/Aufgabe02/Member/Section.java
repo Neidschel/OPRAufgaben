@@ -39,11 +39,16 @@ public class Section extends AbstractMember {
 	 *            the new member which is to be inserted into the tree
 	 * @return false if the member already existed or if there was no member in
 	 *         the transfer parameter; true if the insertion was successful
+	 * @throws NullPointerException
+	 *             if m is null
+	 * @throws ValueException
+	 *             if insert is not Comparable
 	 */
-	public boolean addMember(AbstractMember m) throws ValueException, NullPointerException{
+	public boolean addMember(AbstractMember m) throws ValueException,
+			NullPointerException {
 		if (m == null || ((AbstractMember) m).getName().equals("failfailfail")
 				|| this.getName().equals("failfailfail")) {
-			return false;
+			throw new NullPointerException("No Valid Member added!");
 		}
 		if (tree == null) {
 			tree = new BinarySearchTree();
@@ -118,11 +123,13 @@ public class Section extends AbstractMember {
 	 * @param name
 	 *            the member which is to be removed
 	 * @return true if the member was found and deleted, false otherwise
+	 * @throws NullPointerException
+	 *             if name is null
 	 */
-	public boolean removeMember(String name) {
+	public boolean removeMember(String name) throws NullPointerException {
 
 		if (tree == null || name == null) {
-			return false;
+			throw new NullPointerException("No tree or invalid name search");
 		} else {
 			Comparable[] array = tree.toArray(true);
 			boolean check = false;
@@ -163,10 +170,12 @@ public class Section extends AbstractMember {
 	 * @param name
 	 *            the member which is searched
 	 * @return true if the member was found, false otherwise
+	 * @throws NullPointerException
+	 *             if name is null
 	 */
-	public boolean isMember(String name) {
+	public boolean isMember(String name) throws NullPointerException {
 		if (tree == null || name == null) {
-			return false;
+			throw new NullPointerException("No tree or invalid name search");
 		} else {
 			Comparable[] array = tree.toArray(true);
 
@@ -191,10 +200,13 @@ public class Section extends AbstractMember {
 	 *            true if all of the subsections should be searched, false
 	 *            otherwise
 	 * @return true if the member was found, false otherwise
+	 * @throws NullPointerException
+	 *             if name is null
 	 */
-	public boolean isMember(String name, boolean recursive) {
+	public boolean isMember(String name, boolean recursive)
+			throws NullPointerException {
 		if (tree == null || name == null) {
-			return false;
+			throw new NullPointerException("No tree or invalid name search");
 		} else if (recursive == false) {
 			return isMember(name);
 		} else {

@@ -7,7 +7,7 @@ import at.fhhgb.mc.Aufgabe02.Abstract.*;
  * determines the costs and the income.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 public class ChairMember extends AbstractMember {
 
@@ -22,14 +22,13 @@ public class ChairMember extends AbstractMember {
 	 * @param competence
 	 *            the competence of the member which determines the costs and
 	 *            the income
+	 * @throws ValueException
+	 *             if the activity isn't in the valid range of 0-10
 	 */
-	public ChairMember(String name, int competence) throws ValueException{
+	public ChairMember(String name, int competence) throws ValueException {
 		super(name, 100 * competence, 20 * competence);
-		try{
-			setCompetence(competence);
-		}catch(ValueException ex){
-			setCompetence(0);
-		}
+		setCompetence(competence);
+
 		this.competence = competence;
 	}
 
@@ -43,10 +42,14 @@ public class ChairMember extends AbstractMember {
 	 * 
 	 * @param competence
 	 *            the competence of the chair member
+	 * @throws ValueException
+	 *             if the activity isn't in the valid range of 0-10
 	 */
-	public void setCompetence(int competence) throws ValueException{
+	public void setCompetence(int competence) throws ValueException {
 		if (competence < 0 || competence > 10) {
-			throw new ValueException("The competance wasn't in the valid range of 0-10.",competence);
+			throw new ValueException(
+					"The competance wasn't in the valid range of 0-10.",
+					competence);
 		} else {
 			this.competence = competence;
 		}

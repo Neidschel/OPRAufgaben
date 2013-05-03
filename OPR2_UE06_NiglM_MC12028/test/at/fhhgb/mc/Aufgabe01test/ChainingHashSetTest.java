@@ -37,18 +37,14 @@ public class ChainingHashSetTest {
 	//test insert ; no exception
 	@Test
 	public void testInsertTrue() throws ValueException {
-		chainH.insert(23);
-
+		try{
+			chainH.insert(23);
+		}catch(ValueException e){
+			fail("no exception expected");
+		}
 	}
 	
-	//test insert false
-	@Test (expected=ValueException.class)
-	public void testInsertFalse() throws ValueException {
-		chainH.insert(23);
-		chainH.insert(23);
-		chainH.getOverflowCount(-7);
-	}
-	
+	//Exceptino expected
 	@Test
 	public void testInsertExcp(){
 		
@@ -57,7 +53,6 @@ public class ChainingHashSetTest {
 			chainH.insert(23);
 			chainH.insert(23);
 		}catch(ValueException e){
-			//test ok
 			return;
 		}
 		
@@ -140,7 +135,7 @@ public class ChainingHashSetTest {
 		assertEquals(false,chainH.remove(324));
 	}
 	
-	//test overflowcount
+	//no exception expected test overflowcount
 	@Test
 	public void testGetOverflowCount() throws ValueException {
 		chainH.insert(23);
@@ -149,17 +144,27 @@ public class ChainingHashSetTest {
 		chainH.insert(12);
 		chainH.insert(502);
 		chainH.insert(5);
-		assertEquals(2,chainH.getOverflowCount(2));
+	
+		try{
+			assertEquals(2,chainH.getOverflowCount(2));
+		}catch(ValueException ex){
+			fail(ex.getMessage());
+		}
 	}
 	
-	//test overflow if empty
-	@Test (expected=ValueException.class)
+	//exception expected overflow empty
+	@Test
 	public void testGetOverflowCountEmpty() throws ValueException {
-		assertEquals(Integer.MIN_VALUE,chainH.getOverflowCount(2));
+		try{
+			chainH.getOverflowCount(2);
+		}catch(ValueException ex){
+			return;
+		}
+		fail("Exception expected");
 	}
 	
-	//test overflow with to big hash
-	@Test (expected=ValueException.class)
+	//exception expected overflow to high
+	@Test
 	public void testGetOverflowCounttoBigHash() throws ValueException {
 		chainH.insert(23);
 		chainH.insert(34);
@@ -167,11 +172,16 @@ public class ChainingHashSetTest {
 		chainH.insert(12);
 		chainH.insert(502);
 		chainH.insert(5);
-		assertEquals(Integer.MIN_VALUE,chainH.getOverflowCount(8));
+		try{
+			chainH.getOverflowCount(8);
+		}catch(ValueException ex){
+			return;
+		}
+		fail("Exception expected");
 	}
 	
-	//test overflow with negative hash
-	@Test (expected=ValueException.class)
+	//exception expected negative overflow
+	@Test
 	public void testGetOverflowCountNegativeHash() throws ValueException {
 		chainH.insert(23);
 		chainH.insert(34);
@@ -179,7 +189,12 @@ public class ChainingHashSetTest {
 		chainH.insert(12);
 		chainH.insert(502);
 		chainH.insert(5);
-		assertEquals(Integer.MIN_VALUE,chainH.getOverflowCount(-8));
+		try{
+			chainH.getOverflowCount(-8);
+		}catch(ValueException ex){
+			return;
+		}
+		fail("Exception expected");
 	}
 	
 	//test elements

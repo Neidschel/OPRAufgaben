@@ -7,7 +7,7 @@ package at.fhhgb.mc.Aufgabe02.Abstract;
  * All values of the member (income, costs, name) are stored here.
  * 
  * @author Michael Nigl
- * @version 1.0
+ * @version 1.1
  */
 public abstract class AbstractMember implements Comparable<AbstractMember> {
 
@@ -28,10 +28,13 @@ public abstract class AbstractMember implements Comparable<AbstractMember> {
 	 * @param costs
 	 *            the money a member cost or the money all members cost a
 	 *            section
+	 * @throws NullPointerException
+	 *             if name is null
 	 */
-	public AbstractMember(String name, double income, double costs) {
+	public AbstractMember(String name, double income, double costs)
+			throws NullPointerException {
 		if (name == null) {
-			this.name = "failfailfail";
+			throw new NullPointerException("The new Member has no name!");
 		} else {
 			this.name = name;
 		}
@@ -74,9 +77,15 @@ public abstract class AbstractMember implements Comparable<AbstractMember> {
 	 * @param m
 	 *            the AbstractMember to be compared with this one
 	 * @return 1 if this Objects value is bigger, -1 if this value is smaller
+	 * @throws NullPointerException
+	 *             if m is null
 	 */
-	public int compareTo(AbstractMember m) {
-		if (this.getSurplus() > m.getSurplus()) {
+	public int compareTo(AbstractMember m) throws NullPointerException {
+
+		if (m == null) {
+			throw new NullPointerException(
+					"No valid comparable in the transfer parameter!");
+		} else if (this.getSurplus() > m.getSurplus()) {
 			return 1;
 		} else if (this.getSurplus() < m.getSurplus()) {
 			return -1;
