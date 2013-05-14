@@ -36,8 +36,11 @@ public class DoubleLinkedList {
 
 	/**
 	 * This constructor initializes this list with another list.
+	 * 
+	 * @throws NullPointerException
+	 *             is thrown when the other list is null
 	 */
-	public DoubleLinkedList(DoubleLinkedList other) {
+	public DoubleLinkedList(DoubleLinkedList other) throws NullPointerException {
 
 		if (other != null) {
 			DLNode n = new DLNode();
@@ -57,11 +60,28 @@ public class DoubleLinkedList {
 			tail = other.tail;
 		} else {
 
-			head = null;
-			tail = null;
+			throw new NullPointerException("No other list!");
 
 		}
 
+	}
+
+	/**
+	 * Checks if two Comparable Objects are comparable with each othe.
+	 * 
+	 * @param _c1
+	 *            the first Comparable for comparison
+	 * @param _c2
+	 *            the second Comparable for comparison
+	 * @return true if those Objects are compareable, false otherwise
+	 */
+	public static boolean isComparable(Comparable _c1, Comparable _c2) {
+		try {
+			_c1.compareTo(_c2);
+			return true;
+		} catch (ClassCastException _e) {
+			return false;
+		}
 	}
 
 	/**
@@ -103,9 +123,18 @@ public class DoubleLinkedList {
 	 * 
 	 * @param val
 	 *            - the value for the new Node object
+	 * @throws ValueException
+	 *             Exception is thrown if the elements in the list are not
+	 *             Comparable with the new one
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
 	 */
-	public void pushFront(Comparable val) {
+	public void pushFront(Comparable val) throws ValueException {
 
+		if (val == null) {
+			throw new NullPointerException(
+					"Null at pushFront in the transfer parameter!");
+		}
 		DLNode n = new DLNode();
 		n.setVal(val);
 
@@ -116,9 +145,14 @@ public class DoubleLinkedList {
 
 		} else {
 
-			n.setNext(head);
-			head.setPrev(n);
-			head = n;
+			if (isComparable(val, tail.getVal())) {
+				n.setNext(head);
+				head.setPrev(n);
+				head = n;
+			} else {
+				throw new ValueException("No Comparable Objects in the list!",
+						val);
+			}
 
 		}
 
@@ -129,8 +163,25 @@ public class DoubleLinkedList {
 	 * 
 	 * @param other
 	 *            - the list which is added at the front of this one
+	 * @throws ValueException
+	 *             Exception is thrown if the elements in the list are not
+	 *             Comparable with the new list
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
 	 */
-	public void pushFront(DoubleLinkedList other) {
+	public void pushFront(DoubleLinkedList other) throws ValueException {
+
+		if (other == null) {
+			throw new NullPointerException(
+					"Null at pushFront DLL in the transfer parameter!");
+		}
+
+		if (head != null && other.head != null) {
+			if (!isComparable(other.tail.getVal(), tail.getVal())) {
+				throw new ValueException("Not Comparable Lists. ", other.tail
+						.getVal().toString());
+			}
+		}
 
 		DLNode n = new DLNode();
 		n = other.head;
@@ -167,8 +218,18 @@ public class DoubleLinkedList {
 	 * 
 	 * @param val
 	 *            - the value for the new Node object
+	 * @throws ValueException
+	 *             Exception is thrown if the elements in the list are not
+	 *             Comparable with the new one
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
 	 */
-	public void pushBack(Comparable val) {
+	public void pushBack(Comparable val) throws ValueException {
+
+		if (val == null) {
+			throw new NullPointerException(
+					"Null at pushBack in the transfer parameter!");
+		}
 
 		DLNode n = new DLNode();
 		n.setVal(val);
@@ -180,9 +241,14 @@ public class DoubleLinkedList {
 
 		} else {
 
-			tail.setNext(n);
-			n.setPrev(tail);
-			tail = n;
+			if (tail.getVal() == null || isComparable(val, tail.getVal())) {
+				tail.setNext(n);
+				n.setPrev(tail);
+				tail = n;
+			} else {
+				throw new ValueException("No Comparable Objects in the list!",
+						val);
+			}
 
 		}
 
@@ -193,8 +259,25 @@ public class DoubleLinkedList {
 	 * 
 	 * @param other
 	 *            - the list which is added at the end of this one
+	 * @throws ValueException
+	 *             Exception is thrown if the elements in the list are not
+	 *             Comparable with the new list
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
 	 */
-	public void pushBack(DoubleLinkedList other) {
+	public void pushBack(DoubleLinkedList other) throws ValueException {
+
+		if (other == null) {
+			throw new NullPointerException(
+					"Null at pushBack DLL in the transfer parameter!");
+		}
+
+		if (head != null && other.head != null) {
+			if (!isComparable(other.tail.getVal(), tail.getVal())) {
+				throw new ValueException("Not Comparable Lists. ", other.tail
+						.getVal().toString());
+			}
+		}
 
 		DLNode n = new DLNode();
 		n = other.head;
@@ -238,8 +321,7 @@ public class DoubleLinkedList {
 	}
 
 	/**
-	 * Removes and returns the front element of the linked list. Returns
-	 * Integer.MIN_VALUE if empty
+	 * Removes and returns the front element of the linked list.
 	 * 
 	 * @return val - the removed value at the front of the list
 	 * @throws InvalidAccessException
@@ -272,8 +354,7 @@ public class DoubleLinkedList {
 	}
 
 	/**
-	 * Returns the front element of the list without removing it. Returns
-	 * Integer.MIN_VALUE if empty
+	 * Returns the front element of the list without removing it.
 	 * 
 	 * @return val - the value at the front of the list
 	 * @throws InvalidAccessException
@@ -295,8 +376,7 @@ public class DoubleLinkedList {
 	}
 
 	/**
-	 * Removes and returns the element from the back of the linked list. Returns
-	 * Integer.MIN_VALUE if empty
+	 * Removes and returns the element from the back of the linked list.
 	 * 
 	 * @return val - the removed value at the back of the list
 	 * @throws InvalidAccessException
@@ -311,13 +391,16 @@ public class DoubleLinkedList {
 		} else {
 
 			Comparable val = tail.getVal();
-		
+
 			tail = tail.getPrev();
 
 			if (tail != null) {
 				tail.setNext(null);
-			}else{
+			} else {
 				head = null;
+			}
+			if (tail != null && tail.getVal() == null) {
+				popBack();
 			}
 			return val;
 
@@ -326,8 +409,7 @@ public class DoubleLinkedList {
 	}
 
 	/**
-	 * Returns the element at the back of the list without removing it. Returns
-	 * Integer.MIN_VALUE if empty
+	 * Returns the element at the back of the list without removing it.
 	 * 
 	 * @return val - the value at the back of the list
 	 * @throws InvalidAccessException
@@ -354,8 +436,15 @@ public class DoubleLinkedList {
 	 * @param other
 	 *            - the other list compared with this one
 	 * @return - true if the other list is equal to this one, false otherwise
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
 	 */
 	public boolean equals(DoubleLinkedList other) {
+
+		if (other == null) {
+			throw new NullPointerException(
+					"Null at equals in the transfer parameter!");
+		}
 
 		DLNode n = head;
 		DLNode p = other.head;
@@ -393,8 +482,20 @@ public class DoubleLinkedList {
 	 * @param val
 	 *            - the value which is searched in the list
 	 * @return - true if the element val exists in the list, false otherwise
+	 * @throws NullPointerException
+	 *             Exception is thrown if the transfer parameter is null
+	 * @throws ValueException
+	 *             Exception is thrown if the transfer parameter is not
+	 *             Comparable
 	 */
-	public boolean search(Comparable val) {
+	public boolean search(Comparable val) throws ValueException {
+
+		if (val == null) {
+			throw new NullPointerException(
+					"Null at search in the transfer parameter!");
+		} else if (tail != null && !isComparable(val, tail.getVal())) {
+			throw new ValueException("Invalid Comparable used!", val.toString());
+		}
 
 		DLNode n = head;
 
@@ -499,7 +600,6 @@ public class DoubleLinkedList {
 				n = n.getNext();
 
 				output.append("\n");
-
 
 				counter++;
 

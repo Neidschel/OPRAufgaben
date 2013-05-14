@@ -9,7 +9,7 @@ package at.fhhgb.mc.Aufgabe01;
  * list will be filled with dummy nodes till the given index.
  * 
  * @author Michael Nigl
- * @version 1.1
+ * @version 1.2
  */
 public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 
@@ -25,7 +25,7 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	/**
 	 * Copy constructor which initializes the list with another list. By calling
 	 * the Constructor of DLL where another list where another list can be given
-	 * as transfer paramether
+	 * as transfer parameter
 	 * 
 	 * @param other
 	 *            - the other list which is added to this one
@@ -50,11 +50,20 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 *            - the value of new element
 	 * @throws InvalidAccessException
 	 *             Exception is thrown when the index is invalid
+	 * @throws ValueException
+	 *             Exception is thrown when the value is not Comparable
+	 * @throws NullPointerException
+	 *             Exception is thrown when the Comparable is null
 	 */
-	public void insertAt(int index, Comparable val) throws InvalidAccessException {
+	public void insertAt(int index, Comparable val)
+			throws InvalidAccessException, ValueException {
 
 		if (index < 0) {
 			throw new InvalidAccessException("Invalid index used");
+		} else if (val == null) {
+			throw new NullPointerException("Comparable is null at insertAt");
+		} else if (tail != null && !isComparable(val, tail.getVal())) {
+			throw new ValueException("Invalid Comparable used!", val.toString());
 		} else {
 			DLNode n = new DLNode();
 			int compare = elements();
@@ -81,13 +90,13 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 
 				int i = 1;
 				while (i <= dummy_count) {
-					
+
 					DLNode node = new DLNode();
 					n.setNext(node);
 					node.setPrev(n);
 					tail = node;
-					n=n.getNext();
-					
+					n = n.getNext();
+
 					i++;
 
 				}
@@ -97,7 +106,7 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 			} else {
 
 				if (head == null) {
-					
+
 					pushFront(val);
 
 				} else {
@@ -154,8 +163,11 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 *            - the searched value
 	 * @return - true if an element with the given value exists, false
 	 *         otherwise.
+	 * @throws ValueException
+	 *             Exception is thrown from search
 	 */
-	public boolean contains(Comparable val) {
+
+	public boolean contains(Comparable val) throws ValueException {
 
 		return search(val);
 
@@ -190,7 +202,7 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 				DLNode n = head;
 				while (i <= index && n != null) {
 					if (i == index) {
-						if(n.isInitialized()==false){
+						if (n.isInitialized() == false) {
 							return false;
 						}
 						if (n.getPrev() == null) {
@@ -201,22 +213,20 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 								System.out.println(ex.getMessage());
 								ex.printStackTrace();
 							}
-							
+
 							i++;
-							
-							
 
 						} else if (n.getNext() == null) {
 							try {
 								popBack();
-								while(tail != null && tail.getVal() == null){		
+								while (tail != null && tail.getVal() == null) {
 									popBack();
 								}
 							} catch (InvalidAccessException ex) {
 								System.out.println(ex.getMessage());
 								ex.printStackTrace();
 							}
-							
+
 							i++;
 
 						} else {
@@ -244,19 +254,25 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 	 *            - the value to be removed
 	 * @return - true if at least one element of the value was found and
 	 *         removed, false otherwise
+	 * @throws ValueException
+	 *             Exception is thrown if val is not Comparable with the list
 	 */
-	public boolean removeAll(Comparable val) {
+	public boolean removeAll(Comparable val) throws ValueException {
 
-		if (head == null) {
+		if (val == null) {
+			throw new NullPointerException("Comparable is null at removeAll");
+		}else if (head == null) {
 			return false;
+		}else if (tail != null && !isComparable(val, tail.getVal())) {
+			throw new ValueException("Invalid Comparable used!", val.toString());
 		} else {
 			boolean found = false;
 			DLNode n = head;
-			
+
 			while (n != null) {
-				if(n.getVal()!=null){
-					if (n.getVal().compareTo(val)==0) {
-	
+				if (n.getVal() != null) {
+					if (n.getVal().compareTo(val) == 0) {
+
 						if (n.getPrev() == null) {
 							head = n.getNext();
 							n.getNext().setPrev(null);
@@ -271,20 +287,19 @@ public class RandomAccessDoubleLinkedList extends DoubleLinkedList {
 						found = true;
 					}
 				}
-				
-				if(n.getNext()==null){
-					while(tail.getVal()==null){
-						try{
+
+				if (n.getNext() == null) {
+					while (tail.getVal() == null) {
+						try {
 							popBack();
-						}catch(InvalidAccessException ex){
+						} catch (InvalidAccessException ex) {
 							break;
 						}
 					}
 				}
-				
+
 				n = n.getNext();
-				
-				
+
 			}
 
 			return found;
