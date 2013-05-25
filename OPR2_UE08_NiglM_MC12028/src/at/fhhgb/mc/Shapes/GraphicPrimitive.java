@@ -1,8 +1,9 @@
 package at.fhhgb.mc.Shapes;
 
-import java.awt.Graphics;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.Rectangle;
+
+
 
 
 public abstract class GraphicPrimitive{
