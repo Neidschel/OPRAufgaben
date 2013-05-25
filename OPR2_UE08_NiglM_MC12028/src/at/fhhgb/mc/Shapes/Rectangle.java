@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Rectangle extends GraphicPrimitive{
 	
-	int x, y, width, height, point2X,point2Y;
+	int x, y, width, height;
 	
 	public Rectangle(int xPoint1, int yPoint1, int xPoint2, int yPoint2){
 		if(xPoint1 > xPoint2){
@@ -23,9 +23,6 @@ public class Rectangle extends GraphicPrimitive{
 			yPoint2 = tmp;
 		}
 		y = yPoint1;
-		
-		point2X = xPoint2;
-		point2Y = yPoint2;
 		
 		width = xPoint2 - x;
 		height = yPoint2 - y;

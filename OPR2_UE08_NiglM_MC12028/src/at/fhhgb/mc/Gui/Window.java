@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class Window extends Frame implements ActionListener, WindowListener {
+public class Window extends Frame implements WindowListener {
 
 	/**
 	 * @param args
@@ -26,7 +26,7 @@ public class Window extends Frame implements ActionListener, WindowListener {
 	private TextField m_text;
 
 	public Window() {
-		super("Do it yourself kit!");
+		super("My Draw Window");
 		Panel panel1 = new Panel();
 		final DrawPanel drawings = new DrawPanel();
 		setLayout(new BorderLayout()); // North-east-south-west layout
@@ -75,12 +75,22 @@ public class Window extends Frame implements ActionListener, WindowListener {
 		});
 		panel1.add(polygonButton);
 
-		clearButton = new Button("Clear");
-		clearButton.addActionListener(this);
+		clearButton = new Button("Delete");
+		clearButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				drawings.setButton(5);
+				drawings.checkPoints();
+			}
+		});
 		panel1.add(clearButton);
 
 		deleteAllButton = new Button("Clear All");
-		deleteAllButton.addActionListener(this);
+		deleteAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				drawings.setButton(6);
+				drawings.checkPoints();
+			}
+		});
 		panel1.add(deleteAllButton);
 
 		add("North", panel1);
@@ -92,11 +102,6 @@ public class Window extends Frame implements ActionListener, WindowListener {
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		String s = "the " + e.getActionCommand() + "-button was pressed!";
-		m_text.setText(s);
-		repaint();
-	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
