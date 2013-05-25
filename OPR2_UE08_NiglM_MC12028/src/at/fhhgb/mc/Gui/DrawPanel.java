@@ -27,78 +27,78 @@ public class DrawPanel extends Panel implements ActionListener {
 		// m_okButton=new Button(OK);
 		// m_okButton.addListener(this); //register for clicks to m_okButton
 		this.setBackground(Color.gray);
-		this.addMouseListener(new MouseListener() {
+		this.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 //				System.out.println("Mouse clicked at (" + e.getX() + "/"
 //						+ e.getY() + ")");
 				if (getButton() != -1) {
 					xpoints.add(e.getX());
 					ypoints.add(e.getY());
+					checkPoints();
 				}
 				
-				 
-				
-				checkPoints();
 				for (int i = 0; i < shapes.size(); i++) {
-
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())) {
 						shapes.get(i).setSelected(true);
 						dx = e.getX();
 						dy = e.getY();
-						System.out.println(dx+", "+dy);
-						System.out.println(e.getX()-dx);
+						System.out.println(dx);
+						
 					} else {
 						shapes.get(i).setSelected(false);
 					}
 				}
 				repaint();
 			}
-
-			public void mouseDragged(MouseEvent e) {
-
-			}
-
-			@Override
+			
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
+				for (int i = 0; i < shapes.size(); i++) {
+					if (shapes.get(i).getBoundingBox()
+							.contains(e.getX(), e.getY())) {
+						shapes.get(i).setSelected(true);
+						dx = e.getX();
+						dy = e.getY();
+						System.out.println(dx);
+						
+					} else {
+						shapes.get(i).setSelected(false);
+					}
+				}
+				repaint();
 			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-			@Override
+			
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
+				repaint();
 			}
-
-			@Override
+			
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
+				repaint();
 			}
+			
+			
+			
 		});
+		
 		this.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
 				for (int i = 0; i < shapes.size(); i++) {
 
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())) {
 						shapes.get(i).setSelected(true);
-						status = status + " " + shapes.get(i).toString();
-						//
-
-						shapes.get(i).move(e.getX()-dx, e.getY()-dy);
+						
+						System.out.println(dx);
+						shapes.get(i).move((e.getX()-dx), (e.getY()-dy));
+						dx = e.getX();
+						dy = e.getY();
 					} else {
 						shapes.get(i).setSelected(false);
 					}
 
 				}
-
 				repaint();
 			}
 
@@ -111,10 +111,10 @@ public class DrawPanel extends Panel implements ActionListener {
 
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())) {
-						shapes.get(i).setSelected(true);
+						shapes.get(i).setHovered(true);
 						status = status + " " + shapes.get(i).toString();
 					} else {
-						shapes.get(i).setSelected(false);
+						shapes.get(i).setHovered(false);
 					}
 
 				}
@@ -155,8 +155,6 @@ public class DrawPanel extends Panel implements ActionListener {
 			xpoints.clear();
 			ypoints.clear();
 			shapes.add(rec);
-
-			System.out.println("here");
 			setButton(-1);
 			repaint();
 		}
@@ -168,12 +166,12 @@ public class DrawPanel extends Panel implements ActionListener {
 			g.setColor(new Color(255, 0, 0));
 			g.drawRect(xpoints.get(i), ypoints.get(i), 1, 1);
 		}
-
+		
+		g.create();
 		g.drawString(status, mouseX + 10, mouseY + 10);
 
 		for (int i = 0; i < shapes.size(); i++) {
 			shapes.get(i).draw(g);
-
 		}
 
 	}

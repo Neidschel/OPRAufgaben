@@ -46,17 +46,23 @@ public class Rectangle extends GraphicPrimitive{
 	public void move(int dx, int dy) {
 		x += dx;
 		y += dy;
-		
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(new Color(0, 255, 0));
 		g.drawRect(x, y, width, height);
-		if(getSelected()){
+		if(getHovered()){
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(10, 10, 10));
 			g.drawRect((int)bounds.getX(),(int) bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
+		}
+		if(getSelected()){
+			java.awt.Rectangle bounds = getBoundingBox();
+			g.setColor(new Color(255, 0, 0));
+			Graphics2D g2 = (Graphics2D) g;
+	        g2.setStroke(new BasicStroke(3));
+			g2.drawRect((int)bounds.getX(),(int) bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
 		}
 	}
 

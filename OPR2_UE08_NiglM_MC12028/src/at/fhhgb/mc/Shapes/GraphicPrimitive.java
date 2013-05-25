@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 public abstract class GraphicPrimitive{
 	
 	private boolean selected = false;
+	private boolean hovered = false;
 	
 	public abstract String toString();
 	
@@ -26,6 +27,14 @@ public abstract class GraphicPrimitive{
 	
 	public boolean getSelected(){
 		return selected;
+	}
+	
+	public void setHovered(boolean hovered){
+		this.hovered = hovered;
+	}
+	
+	public boolean getHovered(){
+		return hovered;
 	}
 	
 }
