@@ -6,12 +6,25 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+/**
+ * This Class provides methods for drawing a Triangle. 
+ * 
+ * @author Michael Nigl
+ * @version 1.0
+ */
 public class Triangle extends GraphicPrimitive{
 	
 	private int[] x = new int[3];
 	private int[] y = new int[3];
 	private int points;
 	
+	/**
+	 * The constructor of Triangle which get's the necessary points for drawing this triangle.
+	 * 
+	 * @param x the X coordinates of the triangle
+	 * @param y the Y coordinates of the triangle
+	 * @param points the number of points
+	 */
 	public Triangle(int[] x, int[] y, int points){
 		for(int i = 0; i < this.x.length;i++){
 			this.x[i] = x[i];
@@ -20,18 +33,27 @@ public class Triangle extends GraphicPrimitive{
 		this.points = points;
 	}
 	
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#toString()
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "Triangle P1=("+x[0]+ ","+y[0]+") P2=("+x[1]+ ","+y[1]+") P3=("+x[2]+ ","+y[2]+")";
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#getBoundingBox()
+	 */
 	@Override
 	public java.awt.Rectangle getBoundingBox() {
 		java.awt.Rectangle bounds = new java.awt.Polygon(x,y,points).getBounds();
 		return bounds;
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#move(int, int)
+	 */
 	@Override
 	public void move(int dx, int dy) {
 		x[0] += dx;
@@ -43,6 +65,9 @@ public class Triangle extends GraphicPrimitive{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#draw(java.awt.Graphics)
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(new Color(100, 255, 255));
@@ -62,10 +87,13 @@ public class Triangle extends GraphicPrimitive{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#clone()
+	 */
 	@Override
 	public GraphicPrimitive clone() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Triangle(x,y,points);
 	}
 
 }

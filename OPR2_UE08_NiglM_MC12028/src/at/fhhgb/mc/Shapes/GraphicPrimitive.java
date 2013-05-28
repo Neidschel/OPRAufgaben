@@ -3,11 +3,19 @@ package at.fhhgb.mc.Shapes;
 import java.awt.*;
 import java.awt.Rectangle;
 
+/**
+ * An abstract class which provides necessary methods for different graphic
+ * objects like circle, triangle, rectangle and so on for right behavior when
+ * those are drawn.
+ * 
+ * @author Michael Nigl
+ * @version 1.0
+ */
 public abstract class GraphicPrimitive {
-	
-	//checks if the object is selected
+
+	// checks if the object is selected
 	private boolean selected = false;
-	//checks if the object is hovered
+	// checks if the object is hovered
 	private boolean hovered = false;
 
 	/*
@@ -42,8 +50,11 @@ public abstract class GraphicPrimitive {
 	 */
 	public abstract void draw(Graphics g);
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#clone()
+	/**
+	 * Makes a copy of the GraphicPrimitive object which called this method. All
+	 * Points are copied and a new Object can be drawn.
+	 * 
+	 * @return a clone of that graphic primitive object
 	 */
 	public abstract GraphicPrimitive clone();
 

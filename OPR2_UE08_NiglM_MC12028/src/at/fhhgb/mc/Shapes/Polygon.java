@@ -6,12 +6,25 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+/**
+ * This Class provides methods for drawing a Polygon. 
+ * 
+ * @author Michael Nigl
+ * @version 1.0
+ */
 public class Polygon extends GraphicPrimitive{
 
 	private int[] x;
 	private int[] y;
 	private int points;
 	
+	/**
+	 * The constructor of Polygon which get's the necessary points for drawing this polygon.
+	 * 
+	 * @param x the X coordinates of the all of the points of the polygon
+	 * @param y the Y coordinates of the all of the points of the polygon
+	 * @param points the number of points the polygon has
+	 */
 	public Polygon(int[] x, int[] y, int points){
 		
 		this.x = new int[x.length];
@@ -24,6 +37,9 @@ public class Polygon extends GraphicPrimitive{
 		this.points = points;
 	}
 	
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder output = new StringBuilder();
@@ -37,12 +53,18 @@ public class Polygon extends GraphicPrimitive{
 		return output.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#getBoundingBox()
+	 */
 	@Override
 	public java.awt.Rectangle getBoundingBox() {
 		java.awt.Rectangle bounds = new java.awt.Polygon(x,y,points).getBounds();
 		return bounds;
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#move(int, int)
+	 */
 	@Override
 	public void move(int dx, int dy) {
 		
@@ -53,6 +75,9 @@ public class Polygon extends GraphicPrimitive{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#draw(java.awt.Graphics)
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(new Color(120, 150, 230));
@@ -72,10 +97,12 @@ public class Polygon extends GraphicPrimitive{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#clone()
+	 */
 	@Override
 	public GraphicPrimitive clone() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Polygon(x,y,points);
 	}
 
 }

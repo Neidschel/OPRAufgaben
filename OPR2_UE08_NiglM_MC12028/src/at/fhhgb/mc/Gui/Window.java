@@ -12,27 +12,43 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * The main window which is generated when the program is started. The buttons
+ * and the drawpanel are displayed and called with Listeners.
+ * 
+ * @author Michael Nigl
+ * @version 1.0
+ */
 public class Window extends Frame implements WindowListener {
 
 	/**
+	 * The main Method which starts the program.
+	 * 
 	 * @param args
+	 *            no arguments here
 	 */
 	public static void main(String[] args) {
 		new Window();
 	}
 
-	private Button triangleButton, rectangleButton, polygonButton, circleButton, lineButton,
-			clearButton, deleteAllButton;
+	private Button triangleButton, rectangleButton, polygonButton,
+			circleButton, lineButton, clearButton, deleteAllButton;
 	private TextField m_text;
 
+	/**
+	 * A anonymous class which represents the window where the buttons and the
+	 * drawpanel are displayed.
+	 */
 	public Window() {
 		super("My Draw Window");
 		Panel panel1 = new Panel();
 		final DrawPanel drawings = new DrawPanel();
+		// layout for Button + drawpanel
 		setLayout(new BorderLayout()); // North-east-south-west layout
-
+		// layout for the Buttons
 		panel1.setLayout(new FlowLayout());
-		
+
+		// line Button with ActionListener when its pressed
 		lineButton = new Button("Line");
 		lineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -41,7 +57,8 @@ public class Window extends Frame implements WindowListener {
 			}
 		});
 		panel1.add(lineButton);
-		
+
+		// rectangle Button with ActionListener when its pressed
 		rectangleButton = new Button("Rectangle");
 		rectangleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,6 +68,7 @@ public class Window extends Frame implements WindowListener {
 		});
 		panel1.add(rectangleButton);
 
+		// circle Button with ActionListener when its pressed
 		circleButton = new Button("Circle");
 		circleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -59,6 +77,7 @@ public class Window extends Frame implements WindowListener {
 		});
 		panel1.add(circleButton);
 
+		// triangle Button with ActionListener when its pressed
 		triangleButton = new Button("Triangle");
 		triangleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,6 +86,7 @@ public class Window extends Frame implements WindowListener {
 		});
 		panel1.add(triangleButton);
 
+		// polygon Button with ActionListener when its pressed
 		polygonButton = new Button("Polygon");
 		polygonButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,6 +95,7 @@ public class Window extends Frame implements WindowListener {
 		});
 		panel1.add(polygonButton);
 
+		// Delete Button with ActionListener when its pressed
 		clearButton = new Button("Delete");
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,6 +105,7 @@ public class Window extends Frame implements WindowListener {
 		});
 		panel1.add(clearButton);
 
+		// ClearAll Button with ActionListener when its pressed
 		deleteAllButton = new Button("Clear All");
 		deleteAllButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +123,6 @@ public class Window extends Frame implements WindowListener {
 		setVisible(true);
 
 	}
-
 
 	@Override
 	public void windowOpened(WindowEvent e) {

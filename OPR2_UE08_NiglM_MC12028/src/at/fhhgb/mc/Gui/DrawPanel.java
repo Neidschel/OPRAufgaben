@@ -8,20 +8,38 @@ import at.fhhgb.mc.Shapes.*;
 import at.fhhgb.mc.Shapes.Rectangle;
 import at.fhhgb.mc.Shapes.Polygon;
 
+/**
+ * This class implements a Panel where all of the drawings are done. With
+ * buttons can be chosen which element should be drawn and with mouse clicks on
+ * this panel the coordinates for the GrahpicPrimitive are determined.
+ * 
+ * @author Michael Nigl
+ * @version 1.0
+ */
 public class DrawPanel extends Panel implements ActionListener {
 
 	private int xPoint;
 	private int yPoint;
-	private boolean[] checkButton = { false, false, false, false, false, false, false };
+	// boolean array for checking which button is pressed
+	private boolean[] checkButton = { false, false, false, false, false, false,
+			false };
+	// x points for the new GraphicPrimitive to be drawn
 	protected ArrayList<Integer> xpoints = new ArrayList<Integer>();
+	// y points for the new GraphicPrimitive to be drawn
 	protected ArrayList<Integer> ypoints = new ArrayList<Integer>();
+	// all drawn GraphicPrimitives
 	private ArrayList<GraphicPrimitive> shapes = new ArrayList<GraphicPrimitive>();
+
 	private String status = "";
 	private int mouseX;
 	private int mouseY;
 	private int dx;
 	private int dy;
 
+	/**
+	 * A anonymous class which represents the panel where every GraphicPrimitive
+	 * is drawn.
+	 */
 	public DrawPanel() {
 		super();
 		// addMouseMotionListener(this); //register mouse motion events
@@ -29,6 +47,13 @@ public class DrawPanel extends Panel implements ActionListener {
 		// m_okButton.addListener(this); //register for clicks to m_okButton
 		this.setBackground(Color.gray);
 		this.addMouseListener(new MouseAdapter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent
+			 * )
+			 */
 			public void mouseClicked(MouseEvent e) {
 				// System.out.println("Mouse clicked at (" + e.getX() + "/"
 				// + e.getY() + ")");
@@ -53,6 +78,13 @@ public class DrawPanel extends Panel implements ActionListener {
 				repaint();
 			}
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent
+			 * )
+			 */
 			public void mousePressed(MouseEvent e) {
 				for (int i = 0; i < shapes.size(); i++) {
 					if (shapes.get(i).getBoundingBox()
@@ -70,17 +102,43 @@ public class DrawPanel extends Panel implements ActionListener {
 				repaint();
 			}
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseAdapter#mouseEntered(java.awt.event.MouseEvent
+			 * )
+			 */
 			public void mouseEntered(MouseEvent e) {
 				repaint();
 			}
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent
+			 * )
+			 */
 			public void mouseExited(MouseEvent e) {
 				repaint();
 			}
 
 		});
-
+		/**
+		 * The MousmotionListener checks if the mouse is over a GraphicPrimitive
+		 * and calls its toString method. Furthermore the mouse position is
+		 * displayed. If the mouse drags something the move method of the
+		 * corresponding GraphicPrimitive is called.
+		 */
 		this.addMouseMotionListener(new MouseMotionListener() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseMotionListener#mouseDragged(java.awt.event
+			 * .MouseEvent)
+			 */
 			public void mouseDragged(MouseEvent e) {
 				mouseX = e.getX();
 				mouseY = e.getY();
@@ -100,6 +158,13 @@ public class DrawPanel extends Panel implements ActionListener {
 				repaint();
 			}
 
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.
+			 * MouseEvent)
+			 */
 			public void mouseMoved(MouseEvent e) {
 				status = "(" + e.getX() + ", " + e.getY() + ")";
 				mouseX = e.getX();
@@ -125,6 +190,12 @@ public class DrawPanel extends Panel implements ActionListener {
 
 	}
 
+	/**
+	 * Resets the previous clicked button and sets the new clicked one active.
+	 * 
+	 * @param index
+	 *            the number of the activated button
+	 */
 	public void setButton(int index) {
 		for (int i = 0; i < checkButton.length; i++) {
 			checkButton[i] = false;
@@ -138,6 +209,11 @@ public class DrawPanel extends Panel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Checks which button is at the moment pressed.
+	 * 
+	 * @return the number of the pressed button or -1 if no button is pressed
+	 */
 	public int getButton() {
 		for (int i = 0; i < checkButton.length; i++) {
 			if (checkButton[i])
@@ -146,8 +222,15 @@ public class DrawPanel extends Panel implements ActionListener {
 		return -1;
 	}
 
+	/**
+	 * This Method checks which button is at the moment used. This determines
+	 * which object the user attempts to draw next. Furthermore the method
+	 * counts the already drawn points and determines if there is enough
+	 * information to draw the GraphicPrimitive.
+	 */
 	public void checkPoints() {
 
+		// conditions for line
 		if (getButton() == 0 && xpoints.size() == 2) {
 			Line line = new Line(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
@@ -158,6 +241,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			repaint();
 		}
 
+		// conditions for rectangle
 		if (getButton() == 1 && xpoints.size() == 2) {
 			Rectangle rec = new Rectangle(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
@@ -168,6 +252,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			repaint();
 		}
 
+		// conditions for circle
 		if (getButton() == 2 && xpoints.size() == 2) {
 			Circle circle = new Circle(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
@@ -178,6 +263,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			repaint();
 		}
 
+		// conditions for triangle
 		if (getButton() == 3 && xpoints.size() == 3) {
 			int x[] = new int[3];
 			int y[] = new int[3];
@@ -194,6 +280,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			repaint();
 		}
 
+		// conditions for polygon
 		if (getButton() == 4 && xpoints.size() >= 3) {
 			int resultx = Math.abs(xpoints.get(0)
 					- xpoints.get(xpoints.size() - 1));
@@ -217,12 +304,11 @@ public class DrawPanel extends Panel implements ActionListener {
 				setButton(-1);
 				repaint();
 			}
-			
-			
+
 		}
-		
+
+		// conditions for clear
 		if (getButton() == 5) {
-			System.out.println("here");
 			for (int i = 0; i < shapes.size(); i++) {
 				if (shapes.get(i).getSelected()) {
 					shapes.remove(i);
@@ -233,9 +319,9 @@ public class DrawPanel extends Panel implements ActionListener {
 			setButton(-1);
 			repaint();
 		}
-		
+
+		// conditions for remove all
 		if (getButton() == 6) {
-			System.out.println("here");
 			xpoints.clear();
 			ypoints.clear();
 			shapes.clear();
@@ -245,6 +331,11 @@ public class DrawPanel extends Panel implements ActionListener {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.Container#paint(java.awt.Graphics)
+	 */
 	public void paint(Graphics g) {
 		for (int i = 0; i < xpoints.size(); i++) {
 			g.setColor(new Color(255, 0, 0));
