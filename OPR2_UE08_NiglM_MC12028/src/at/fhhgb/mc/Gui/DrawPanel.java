@@ -90,6 +90,7 @@ public class DrawPanel extends Panel implements ActionListener {
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())
 							&& shapes.get(i).getSelected()) {
+						
 						dx = e.getX();
 						dy = e.getY();
 						System.out.println(dx);
@@ -148,7 +149,6 @@ public class DrawPanel extends Panel implements ActionListener {
 							.contains(e.getX(), e.getY())
 							&& shapes.get(i).getSelected()) {
 
-						System.out.println(dx);
 						shapes.get(i).move((e.getX() - dx), (e.getY() - dy));
 						dx = e.getX();
 						dy = e.getY();
@@ -342,7 +342,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			g.drawRect(xpoints.get(i), ypoints.get(i), 1, 1);
 		}
 
-		g.create();
+		//g.create();
 		g.drawString(status, mouseX + 10, mouseY + 10);
 
 		for (int i = 0; i < shapes.size(); i++) {
