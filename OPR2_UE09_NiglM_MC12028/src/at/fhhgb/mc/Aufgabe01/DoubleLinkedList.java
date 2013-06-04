@@ -22,8 +22,7 @@ import at.fhhgb.mc.interfaces.Iterator;
  *            the generic type all nodes in that list are supposed to have
  */
 
-public class DoubleLinkedList<T> implements
-		at.fhhgb.mc.interfaces.Iterable<T> {
+public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 
 	private class ListIterator implements Iterator<T> {
 		DLNode<T> iterNode;
@@ -45,22 +44,24 @@ public class DoubleLinkedList<T> implements
 		public boolean hasNext() {
 			if (iterNode == null) {
 				return false;
-			}else{ 
+			} else {
 				return true;
 			}
 		}
-		
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see at.fhhgb.mc.interfaces.Iterator#hasPrevious()
 		 */
 		public boolean hasPrevious() {
 			if (iterNode == null) {
 				return false;
-			}else{ 
+			} else {
 				return true;
 			}
 		}
-		
+
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -71,7 +72,7 @@ public class DoubleLinkedList<T> implements
 			if (iterNode == null) {
 				throw new InvalidAccessException("No next element to iterate!");
 			} else {
-				T value = iterNode.getVal(); 
+				T value = iterNode.getVal();
 				iterNode = iterNode.getNext();
 				return value;
 			}
@@ -93,22 +94,26 @@ public class DoubleLinkedList<T> implements
 				return value;
 			}
 		}
-		
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see at.fhhgb.mc.interfaces.Iterator#remove()
 		 */
-		public void remove() throws InvalidAccessException{
+		public void remove() throws InvalidAccessException {
 			removeOne(iterNode);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see at.fhhgb.mc.interfaces.Iterator#current()
 		 */
 		@Override
 		public T current() throws InvalidAccessException {
 			return iterNode.getVal();
 		}
-		
+
 	}
 
 	// Pointer to the first and last element of the list
@@ -157,14 +162,22 @@ public class DoubleLinkedList<T> implements
 		}
 
 	}
-	
-	private void removeOne(DLNode<T> node) throws InvalidAccessException{
-		
-		if(node.getPrev()==null){
+
+	/**
+	 * Removes a node in the DLL.
+	 * 
+	 * @param node
+	 *            the node which will be removed
+	 * @throws InvalidAccessException
+	 *             is thrown if there is no node to be removed
+	 */
+	private void removeOne(DLNode<T> node) throws InvalidAccessException {
+
+		if (node.getPrev() == null) {
 			popFront();
-		}else if(node.getNext()==null){
+		} else if (node.getNext() == null) {
 			popBack();
-		}else{
+		} else {
 			node.getPrev().setNext(node.getNext());
 			node.getNext().setPrev(node.getPrev());
 		}
@@ -489,7 +502,6 @@ public class DoubleLinkedList<T> implements
 
 	}
 
-	
 	/**
 	 * Searches the list for an value and checks if it exists.
 	 * 

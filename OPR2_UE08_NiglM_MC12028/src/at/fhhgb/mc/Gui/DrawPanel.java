@@ -140,6 +140,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * .MouseEvent)
 			 */
 			public void mouseDragged(MouseEvent e) {
+				status = "(" + e.getX() + ", " + e.getY() + ")";
 				mouseX = e.getX();
 				mouseY = e.getY();
 				for (int i = 0; i < shapes.size(); i++) {
@@ -150,10 +151,8 @@ public class DrawPanel extends Panel implements ActionListener {
 							|| shapes.get(i).getHovered()) {
 
 						shapes.get(i).move((e.getX() - dx), (e.getY() - dy));
-						System.out
-								.println("Moving " + shapes.get(i).toString());
-						status = "(" + e.getX() + ", " + e.getY() + ")"
-								+ shapes.get(i).toString();
+					
+						status = status + " " + shapes.get(i).toString();
 						;
 
 					}

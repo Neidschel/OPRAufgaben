@@ -174,7 +174,7 @@ public class DrawPanel extends Panel implements ActionListener {
 								&& g1.getSelected() || g1.getHovered()) {
 
 							g1.move((e.getX() - dx), (e.getY() - dy));
-							status = "(" + e.getX() + ", " + e.getY() + ")"+g1.toString();
+							status = status+g1.toString();
 						
 						}
 					} catch (InvalidAccessException e1) {

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import at.fhhgb.mc.Aufgabe01.*;
-
+import at.fhhgb.mc.interfaces.*;
 
 public class DoubleLinkedListTest {
 
@@ -17,7 +17,7 @@ public class DoubleLinkedListTest {
 
 	// no Exception
 	@Test
-	public void testDoubleLinkedList()  {
+	public void testDoubleLinkedList() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(1);
 		dll.pushFront(2);
@@ -34,7 +34,7 @@ public class DoubleLinkedListTest {
 
 	// Exception expected
 	@Test
-	public void testDoubleLinkedListException()  {
+	public void testDoubleLinkedListException() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(1);
 		dll.pushFront(2);
@@ -52,7 +52,7 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testClear()  {
+	public void testClear() {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(5);
@@ -64,7 +64,7 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testPushFront()  {
+	public void testPushFront() {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(5);
@@ -72,15 +72,13 @@ public class DoubleLinkedListTest {
 
 	}
 
-
-
 	// null exception expected
 	@Test
-	public void testPushFrontNullPointerException()  {
+	public void testPushFrontNullPointerException() {
 
 		DoubleLinkedList<String> dll = new DoubleLinkedList<String>();
 		try {
-			dll.pushFront((String)null);
+			dll.pushFront((String) null);
 			dll.pushFront("String");
 		} catch (NullPointerException ex) {
 			return;
@@ -89,7 +87,7 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testPushBack()  {
+	public void testPushBack() {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(5);
@@ -97,17 +95,15 @@ public class DoubleLinkedListTest {
 
 	}
 
-
-
 	// no Exception expected
 	@Test
-	public void testPopFront() throws InvalidAccessException, ValueException {
+	public void testPopFront() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(5);
 		dll.pushFront(6);
 		try {
-			assertEquals(6, (Object)dll.popFront());
+			assertEquals(6, (Object) dll.popFront());
 		} catch (InvalidAccessException ex) {
 			fail(ex.getMessage());
 		}
@@ -127,27 +123,26 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testPopFrontCaunt() throws InvalidAccessException,
-			ValueException {
+	public void testPopFrontCaunt() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(5);
 		dll.pushFront(6);
 		dll.pushFront(7);
-		assertEquals(7, (Object)dll.popFront());
+		assertEquals(7, (Object) dll.popFront());
 		assertEquals(2, dll.elements());
 
 	}
 
 	// no Exception expected
 	@Test
-	public void testPeekFront() throws InvalidAccessException, ValueException {
+	public void testPeekFront() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushFront(5);
 		dll.pushFront(6);
 		try {
-			assertEquals(6, (Object)dll.peekFront());
+			assertEquals(6, (Object) dll.peekFront());
 		} catch (InvalidAccessException ex) {
 			fail(ex.getMessage());
 		}
@@ -156,8 +151,7 @@ public class DoubleLinkedListTest {
 
 	// exception expected
 	@Test
-	public void testPeekFrontEmpty() throws InvalidAccessException,
-			ValueException {
+	public void testPeekFrontEmpty() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		try {
@@ -178,7 +172,7 @@ public class DoubleLinkedListTest {
 		dll.pushBack(5);
 
 		try {
-			assertEquals(5, (Object)dll.popBack());
+			assertEquals(5, (Object) dll.popBack());
 		} catch (InvalidAccessException ex) {
 			fail(ex.getMessage());
 		}
@@ -187,8 +181,7 @@ public class DoubleLinkedListTest {
 
 	// exception expected
 	@Test
-	public void testPopBackEmpty() throws InvalidAccessException,
-			ValueException {
+	public void testPopBackEmpty() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		try {
@@ -201,26 +194,25 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testPopBackCount() throws InvalidAccessException,
-			ValueException {
+	public void testPopBackCount() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
-		assertEquals(5, (Object)dll.popBack());
+		assertEquals(5, (Object) dll.popBack());
 		assertEquals(1, dll.elements());
 
 	}
 
 	// no exception expected
 	@Test
-	public void testPeekBack() throws InvalidAccessException, ValueException {
+	public void testPeekBack() throws InvalidAccessException {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
 		try {
-			assertEquals(5, (Object)dll.popBack());
+			assertEquals(5, (Object) dll.popBack());
 		} catch (InvalidAccessException ex) {
 			fail(ex.getMessage());
 		}
@@ -241,10 +233,8 @@ public class DoubleLinkedListTest {
 
 	}
 
-	
-
 	@Test
-	public void testSearchTrue()  {
+	public void testSearchTrue() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
@@ -254,7 +244,7 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testSearchFalse()  {
+	public void testSearchFalse() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
@@ -265,7 +255,7 @@ public class DoubleLinkedListTest {
 
 	// no Exception expected
 	@Test
-	public void testSearchNoException()  {
+	public void testSearchNoException() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
@@ -278,10 +268,9 @@ public class DoubleLinkedListTest {
 		}
 	}
 
-
 	// null Exception expected
 	@Test
-	public void testSearchNullException()  {
+	public void testSearchNullException() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
 		dll.pushBack(5);
@@ -296,7 +285,7 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testElements()  {
+	public void testElements() {
 
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(6);
@@ -308,34 +297,33 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testReverse() throws InvalidAccessException, ValueException {
+	public void testReverse() throws InvalidAccessException {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(1);
 		dll.pushBack(2);
 		dll.pushBack(3);
 		dll.pushBack(4);
 		dll.reverse();
-		assertEquals(1, (Object)dll.popBack());
-		assertEquals(2, (Object)dll.popBack());
-		assertEquals(3, (Object)dll.popBack());
-		assertEquals(4, (Object)dll.popBack());
+		assertEquals(1, (Object) dll.popBack());
+		assertEquals(2, (Object) dll.popBack());
+		assertEquals(3, (Object) dll.popBack());
+		assertEquals(4, (Object) dll.popBack());
 
 	}
 
 	@Test
-	public void testMultipleReverse() throws InvalidAccessException,
-			ValueException {
+	public void testMultipleReverse() throws InvalidAccessException {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(1);
 		dll.pushBack(2);
 		dll.pushBack(3);
 		dll.pushBack(4);
 		dll.reverse();
-		assertEquals(1, (Object)dll.popBack());
-		assertEquals(2, (Object)dll.popBack());
+		assertEquals(1, (Object) dll.popBack());
+		assertEquals(2, (Object) dll.popBack());
 		dll.reverse();
-		assertEquals(4, (Object)dll.popBack());
-		assertEquals(3, (Object)dll.popBack());
+		assertEquals(4, (Object) dll.popBack());
+		assertEquals(3, (Object) dll.popBack());
 
 	}
 
@@ -346,11 +334,102 @@ public class DoubleLinkedListTest {
 	}
 
 	@Test
-	public void testToString()  {
+	public void testToString() {
 		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
 		dll.pushBack(1);
 		dll.pushBack(2);
 		System.out.println(dll.toString());
+	}
+
+	@Test
+	public void testIteratorHasNextTrue() {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		dll.pushBack(1);
+		dll.pushBack(2);
+		dll.pushBack(3);
+		Iterator<Integer> iter = dll.iterator();
+		assertEquals(true, iter.hasNext());
+	}
+
+	@Test
+	public void testIteratorHasNextFalse() {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		Iterator<Integer> iter = dll.iterator();
+		assertEquals(false, iter.hasNext());
+	}
+
+	@Test
+	public void testIteratorHasPreviusTrue() throws InvalidAccessException {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		dll.pushBack(1);
+		dll.pushBack(2);
+		dll.pushBack(3);
+		Iterator<Integer> iter = dll.iterator();
+		iter.next();
+		assertEquals(true, iter.hasPrevious());
+	}
+
+	@Test
+	public void testIteratorHasPreviousFalse() {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		Iterator<Integer> iter = dll.iterator();
+		assertEquals(false, iter.hasPrevious());
+	}
+
+	// no exception
+	@Test
+	public void testIteratorNextNoException() throws InvalidAccessException {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		dll.pushBack(1);
+		dll.pushBack(2);
+		dll.pushBack(3);
+		Iterator<Integer> iter = dll.iterator();
+		try {
+			assertEquals((Integer) 1, iter.next());
+		} catch (InvalidAccessException ex) {
+			fail("no Exception expected");
+		}
+	}
+
+	// exception expected
+	@Test
+	public void testIteratorNextException() throws InvalidAccessException {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		Iterator<Integer> iter = dll.iterator();
+		try {
+			assertEquals((Integer) 3, iter.next());
+		} catch (InvalidAccessException ex) {
+			return;
+		}
+		fail("Exception expected");
+	}
+
+	// no exception
+	@Test
+	public void testIteratorPreviousNoException() throws InvalidAccessException {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		dll.pushBack(1);
+		dll.pushBack(2);
+		dll.pushBack(3);
+		Iterator<Integer> iter = dll.iterator();
+		try {
+			assertEquals((Integer) 1, iter.previous());
+		} catch (InvalidAccessException ex) {
+			fail("no Exception expected");
+		}
+	}
+
+	// exception expected
+	@Test
+	public void testIteratorPreviousException() throws InvalidAccessException {
+		DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+		Iterator<Integer> iter = dll.iterator();
+		try {
+			assertEquals((Integer) 3, iter.previous());
+		} catch (InvalidAccessException ex) {
+			return;
+		}
+		fail("Exception expected");
 	}
 
 }
