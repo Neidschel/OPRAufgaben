@@ -431,5 +431,25 @@ public class DoubleLinkedListTest {
 		}
 		fail("Exception expected");
 	}
+	
+		@Test
+		public void IteratorStringRepresentation() throws InvalidAccessException {
+			DoubleLinkedList<Integer> dll = new DoubleLinkedList<Integer>();
+			dll.pushBack(1);
+			dll.pushBack(2);
+			dll.pushBack(3);
+			Iterator<Integer> iter = dll.iterator();
+			try {
+				while(iter.hasNext()){
+					System.out.println(iter.next().toString());
+				}
+				while(iter.hasPrevious()){
+					System.out.println(iter.previous().toString());
+				}
+			} catch (InvalidAccessException ex) {
+				fail("no Exception expected");
+			}
+			
+		}
 
 }

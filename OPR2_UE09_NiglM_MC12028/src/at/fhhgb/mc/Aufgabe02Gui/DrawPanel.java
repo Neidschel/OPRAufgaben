@@ -62,7 +62,6 @@ public class DrawPanel extends Panel implements ActionListener {
 					try {
 						checkPoints();
 					} catch (InvalidAccessException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -82,7 +81,6 @@ public class DrawPanel extends Panel implements ActionListener {
 							g1.setHovered(false);
 						}
 					} catch (InvalidAccessException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -99,26 +97,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				dx = e.getX();
 				dy = e.getY();
-//				Iterator<GraphicPrimitive> iter = shapes.iterator();
-//				GraphicPrimitive g1;
-//				while (iter.hasNext()) {
-//					try {
-//						g1 = iter.next();
-//						if (g1.getBoundingBox()
-//								.contains(e.getX(), e.getY())
-//								&& g1.getSelected()) {
-//							
-//						
-//
-//						} else {
-//							g1.setSelected(false);
-//							g1.setHovered(false);
-//						}
-//					} catch (InvalidAccessException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//				}
+
 				repaint();
 			}
 
@@ -178,7 +157,6 @@ public class DrawPanel extends Panel implements ActionListener {
 						
 						}
 					} catch (InvalidAccessException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					
@@ -215,7 +193,6 @@ public class DrawPanel extends Panel implements ActionListener {
 							g1.setHovered(false);
 						}
 					} catch (InvalidAccessException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
@@ -391,7 +368,6 @@ public class DrawPanel extends Panel implements ActionListener {
 			try {
 				g.drawRect(iter.next(), iter2.next(), 1, 1);
 			} catch (InvalidAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -403,7 +379,6 @@ public class DrawPanel extends Panel implements ActionListener {
 			try {
 				iter3.next().draw(g);
 			} catch (InvalidAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -412,7 +387,6 @@ public class DrawPanel extends Panel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

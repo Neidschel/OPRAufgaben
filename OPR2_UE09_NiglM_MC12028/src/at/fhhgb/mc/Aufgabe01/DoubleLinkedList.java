@@ -24,8 +24,16 @@ import at.fhhgb.mc.interfaces.Iterator;
 
 public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 
+	/**
+	 * An Iterator implementation for the DoubleLinkedList which iterates over
+	 * all elements in that list.
+	 * 
+	 * @author Michael Nigl
+	 * @version 1.0
+	 */
 	private class ListIterator implements Iterator<T> {
 		DLNode<T> iterNode;
+		private boolean end = false;
 
 		/**
 		 * Constructor which sets the first element to the head for the
@@ -43,7 +51,12 @@ public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 		@Override
 		public boolean hasNext() {
 			if (iterNode == null) {
-				return false;
+				if (end == false && elements() != 0) {
+					iterNode = head;
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return true;
 			}
@@ -56,7 +69,12 @@ public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 		 */
 		public boolean hasPrevious() {
 			if (iterNode == null) {
-				return false;
+				if (end == true && elements() != 0) {
+					iterNode = tail;
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return true;
 			}
@@ -70,12 +88,19 @@ public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 		@Override
 		public T next() throws InvalidAccessException {
 			if (iterNode == null) {
-				throw new InvalidAccessException("No next element to iterate!");
-			} else {
-				T value = iterNode.getVal();
-				iterNode = iterNode.getNext();
-				return value;
+				
+					throw new InvalidAccessException(
+							"No next element to iterate!");
+				
+
 			}
+			T value = iterNode.getVal();
+			iterNode = iterNode.getNext();
+			if(iterNode == null){
+				end = true;
+			}
+			return value;
+
 		}
 
 		/*
@@ -86,13 +111,20 @@ public class DoubleLinkedList<T> implements at.fhhgb.mc.interfaces.Iterable<T> {
 		@Override
 		public T previous() throws InvalidAccessException {
 			if (iterNode == null) {
-				throw new InvalidAccessException(
-						"No previous element to iterate!");
-			} else {
-				T value = iterNode.getVal();
-				iterNode = iterNode.getPrev();
-				return value;
+				if (end == true && elements() != 0) {
+					iterNode = head;
+				} else {
+					throw new InvalidAccessException(
+							"No previous element to iterate!");
+				}
 			}
+			T value = iterNode.getVal();
+			iterNode = iterNode.getPrev();
+			if(iterNode == null){
+				end = false;
+			}
+			return value;
+
 		}
 
 		/*
