@@ -1,22 +1,18 @@
-package at.fhhgb.mc.Gui;
+package at.fhhgb.mc.Aufgabe02Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
-import java.awt.Checkbox;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Panel;
-import java.awt.Scrollbar;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import at.fhhgb.mc.Aufgabe01.InvalidAccessException;
 
 /**
  * The main window which is generated when the program is started. The buttons
@@ -25,27 +21,17 @@ import java.awt.event.WindowListener;
  * @author Michael Nigl
  * @version 1.0
  */
-public class Window extends Frame implements WindowListener {
-
-	/**
-	 * The main Method which starts the program.
-	 * 
-	 * @param args
-	 *            no arguments here
-	 */
-	public static void main(String[] args) {
-		new Window();
-	}
+public class DrawWindow extends Frame implements WindowListener {
 
 	private Button triangleButton, rectangleButton, polygonButton,
 			circleButton, lineButton, clearButton, deleteAllButton;
-	private Checkbox filled;
+	private TextField m_text;
 
 	/**
 	 * A anonymous class which represents the window where the buttons and the
 	 * drawpanel are displayed.
 	 */
-	public Window() {
+	public DrawWindow() {
 		super("My Draw Window");
 		Panel panel1 = new Panel();
 		final DrawPanel drawings = new DrawPanel();
@@ -106,7 +92,12 @@ public class Window extends Frame implements WindowListener {
 		clearButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				drawings.setButton(5);
-				drawings.checkPoints();
+				try {
+					drawings.checkPoints();
+				} catch (InvalidAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel1.add(clearButton);
@@ -116,59 +107,23 @@ public class Window extends Frame implements WindowListener {
 		deleteAllButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				drawings.setButton(6);
-				drawings.checkPoints();
+				try {
+					drawings.checkPoints();
+				} catch (InvalidAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel1.add(deleteAllButton);
-		filled = new Checkbox("filled", false);
-		filled.addItemListener(new ItemListener(){
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if(filled.getState()){
-					drawings.drawfilled = true;
-				}else{
-					drawings.drawfilled = false;
-					System.out.println("here");
-				}
-				drawings.fillShapes();
-			}
-		});
-		panel1.add(filled);
-		//scrollbar for the red value
-		final Scrollbar sb = new Scrollbar(Scrollbar.HORIZONTAL, 50, 0, 0, 255);
-		//scrollbar for the green value
-		final Scrollbar sb2 = new Scrollbar(Scrollbar.HORIZONTAL, 50, 0, 0, 255);
-		//scrollbar for the blue value
-		final Scrollbar sb3 = new Scrollbar(Scrollbar.HORIZONTAL, 50, 0, 0, 255);
-		
-		
-		sb.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged (AdjustmentEvent e) {
-				drawings.setColorShapes(sb.getValue(),sb2.getValue(),sb3.getValue());
-				}
-		});
-		
-		sb2.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged (AdjustmentEvent e) {
-				drawings.setColorShapes(sb.getValue(),sb2.getValue(),sb3.getValue());
-				}
-		});
-		sb3.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged (AdjustmentEvent e) {
-				drawings.setColorShapes(sb.getValue(),sb2.getValue(),sb3.getValue());
-				}
-		});
-		panel1.add(sb);
-		panel1.add(sb2);
-		panel1.add(sb3);
-		
+
 		add("North", panel1);
 		add("Center", drawings);
 
-		setBounds(100, 100, 1200, 800);
+		setBounds(100, 100, 1024, 768);
 		addWindowListener(this);
 		setVisible(true);
-		
+
 	}
 
 	@Override
