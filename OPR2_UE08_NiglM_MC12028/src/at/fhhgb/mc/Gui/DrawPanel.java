@@ -23,6 +23,7 @@ public class DrawPanel extends Panel implements ActionListener {
 	// boolean array for checking which button is pressed
 	private boolean[] checkButton = { false, false, false, false, false, false,
 			false };
+	protected boolean drawfilled = false;
 	// x points for the new GraphicPrimitive to be drawn
 	protected ArrayList<Integer> xpoints = new ArrayList<Integer>();
 	// y points for the new GraphicPrimitive to be drawn
@@ -67,8 +68,6 @@ public class DrawPanel extends Panel implements ActionListener {
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())) {
 						shapes.get(i).setSelected(true);
-						dx = e.getX();
-						dy = e.getY();
 
 					} else {
 						shapes.get(i).setSelected(false);
@@ -86,20 +85,20 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * )
 			 */
 			public void mousePressed(MouseEvent e) {
-				for (int i = 0; i < shapes.size(); i++) {
-					if (shapes.get(i).getBoundingBox()
-							.contains(e.getX(), e.getY())
-							&& shapes.get(i).getSelected()) {
-						
-						dx = e.getX();
-						dy = e.getY();
-						System.out.println(dx);
 
-					} else {
-						shapes.get(i).setSelected(false);
-						shapes.get(i).setHovered(false);
-					}
-				}
+				dx = e.getX();
+				dy = e.getY();
+				// for (int i = 0; i < shapes.size(); i++) {
+				// if (shapes.get(i).getBoundingBox()
+				// .contains(e.getX(), e.getY())
+				// && shapes.get(i).getSelected()) {
+				//
+				//
+				// } else {
+				// shapes.get(i).setSelected(false);
+				// shapes.get(i).setHovered(false);
+				// }
+				// }
 				repaint();
 			}
 
@@ -147,14 +146,21 @@ public class DrawPanel extends Panel implements ActionListener {
 
 					if (shapes.get(i).getBoundingBox()
 							.contains(e.getX(), e.getY())
-							&& shapes.get(i).getSelected()) {
+							&& shapes.get(i).getSelected()
+							|| shapes.get(i).getHovered()) {
 
 						shapes.get(i).move((e.getX() - dx), (e.getY() - dy));
-						dx = e.getX();
-						dy = e.getY();
+						System.out
+								.println("Moving " + shapes.get(i).toString());
+						status = "(" + e.getX() + ", " + e.getY() + ")"
+								+ shapes.get(i).toString();
+						;
+
 					}
 
 				}
+				dx = e.getX();
+				dy = e.getY();
 				repaint();
 			}
 
@@ -234,6 +240,7 @@ public class DrawPanel extends Panel implements ActionListener {
 		if (getButton() == 0 && xpoints.size() == 2) {
 			Line line = new Line(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
+			line.setFilled(drawfilled);
 			xpoints.clear();
 			ypoints.clear();
 			shapes.add(line);
@@ -245,6 +252,7 @@ public class DrawPanel extends Panel implements ActionListener {
 		if (getButton() == 1 && xpoints.size() == 2) {
 			Rectangle rec = new Rectangle(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
+			rec.setFilled(drawfilled);
 			xpoints.clear();
 			ypoints.clear();
 			shapes.add(rec);
@@ -256,6 +264,7 @@ public class DrawPanel extends Panel implements ActionListener {
 		if (getButton() == 2 && xpoints.size() == 2) {
 			Circle circle = new Circle(xpoints.get(0), ypoints.get(0),
 					xpoints.get(1), ypoints.get(1));
+			circle.setFilled(drawfilled);
 			xpoints.clear();
 			ypoints.clear();
 			shapes.add(circle);
@@ -273,6 +282,8 @@ public class DrawPanel extends Panel implements ActionListener {
 			}
 
 			Triangle triangle = new Triangle(x, y, xpoints.size());
+			triangle.setFilled(drawfilled);
+
 			xpoints.clear();
 			ypoints.clear();
 			shapes.add(triangle);
@@ -298,6 +309,8 @@ public class DrawPanel extends Panel implements ActionListener {
 				}
 
 				Polygon polygon = new Polygon(x, y, x.length);
+				polygon.setFilled(drawfilled);
+
 				xpoints.clear();
 				ypoints.clear();
 				shapes.add(polygon);
@@ -331,6 +344,37 @@ public class DrawPanel extends Panel implements ActionListener {
 
 	}
 
+	/**
+	 * Draws a selected Shape with the given rgb values.
+	 * 
+	 * @param r
+	 *            red value of the color
+	 * @param g
+	 *            green value of the color
+	 * @param b
+	 *            blue value of the color
+	 */
+	public void setColorShapes(int r, int g, int b) {
+		for (int i = 0; i < shapes.size(); i++) {
+			if (shapes.get(i).getSelected()) {
+				shapes.get(i).setColor(r, g, b);
+
+			}
+		}
+		repaint();
+	}
+
+	/**
+	 * Helping method which checks if the Objects are filled or not.
+	 */
+	public void fillShapes() {
+		for (int i = 0; i < shapes.size(); i++) {
+
+			shapes.get(i).setFilled(drawfilled);
+		}
+		repaint();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -342,7 +386,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			g.drawRect(xpoints.get(i), ypoints.get(i), 1, 1);
 		}
 
-		//g.create();
+		// g.create();
 		g.drawString(status, mouseX + 10, mouseY + 10);
 
 		for (int i = 0; i < shapes.size(); i++) {

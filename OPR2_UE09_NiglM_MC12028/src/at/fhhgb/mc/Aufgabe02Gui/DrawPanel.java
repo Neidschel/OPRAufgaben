@@ -160,6 +160,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * .MouseEvent)
 			 */
 			public void mouseDragged(MouseEvent e) {
+				System.out.println("dragged");
 				Iterator<GraphicPrimitive> iter = shapes.iterator();
 				GraphicPrimitive g1;
 				while (iter.hasNext()) {
@@ -191,6 +192,7 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * MouseEvent)
 			 */
 			public void mouseMoved(MouseEvent e) {
+				System.out.println("moving");
 				status = "(" + e.getX() + ", " + e.getY() + ")";
 				mouseX = e.getX();
 				mouseY = e.getY();
@@ -304,8 +306,8 @@ public class DrawPanel extends Panel implements ActionListener {
 			for (int i = 0; i < 3; i++) {
 				x[i] = xpoints.popFront();
 				y[i] = ypoints.popFront();
-				System.out.println(x[i]+"   "+y[i]);
 			}
+			
 			Triangle triangle = new Triangle(x, y, 3);
 			xpoints.clear();
 			ypoints.clear();
@@ -348,12 +350,11 @@ public class DrawPanel extends Panel implements ActionListener {
 		// conditions for clear
 		if (getButton() == 5) {
 			Iterator<GraphicPrimitive> iter = shapes.iterator();
-			GraphicPrimitive g1;
 			while (iter.hasNext()) {
-				if (iter.next().getSelected()) {
-					iter.previous();
+				if (iter.current().getSelected()) {
 					iter.remove();
 				}
+				iter.next();
 			}
 			xpoints.clear();
 			ypoints.clear();

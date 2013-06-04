@@ -49,5 +49,20 @@ public interface Iterator<T> {
 	 */
 	public T previous() throws InvalidAccessException;
 
+	/**
+	 * Removes an element from the list.
+	 * 
+	 * @throws InvalidAccessException
+	 */
 	public void remove() throws InvalidAccessException;
+	
+	/**
+	 * Gives the current element.
+	 * 
+	 * @return the current element before decrementing
+	 * @throws InvalidAccessException
+	 *             is thrown if the method is called at the beginning of the
+	 *             list
+	 */
+	public T current() throws InvalidAccessException;
 }

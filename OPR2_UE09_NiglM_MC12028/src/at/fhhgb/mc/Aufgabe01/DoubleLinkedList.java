@@ -94,8 +94,19 @@ public class DoubleLinkedList<T> implements
 			}
 		}
 		
+		/* (non-Javadoc)
+		 * @see at.fhhgb.mc.interfaces.Iterator#remove()
+		 */
 		public void remove() throws InvalidAccessException{
 			removeOne(iterNode);
+		}
+
+		/* (non-Javadoc)
+		 * @see at.fhhgb.mc.interfaces.Iterator#current()
+		 */
+		@Override
+		public T current() throws InvalidAccessException {
+			return iterNode.getVal();
 		}
 		
 	}
@@ -148,6 +159,7 @@ public class DoubleLinkedList<T> implements
 	}
 	
 	private void removeOne(DLNode<T> node) throws InvalidAccessException{
+		
 		if(node.getPrev()==null){
 			popFront();
 		}else if(node.getNext()==null){

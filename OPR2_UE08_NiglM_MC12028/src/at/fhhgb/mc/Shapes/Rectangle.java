@@ -1,7 +1,5 @@
 package at.fhhgb.mc.Shapes;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.*;
 
 /**
@@ -12,7 +10,10 @@ import java.awt.*;
  */
 public class Rectangle extends GraphicPrimitive{
 	
-	int x, y, width, height;
+	private int x, y, width, height;
+	private int r = 0;
+	private int gr = 255;
+	private int b = 0;
 	
 	/**
 	 * The constructor of Rectangle which get's the necessary points for drawing this rectangle.
@@ -72,8 +73,12 @@ public class Rectangle extends GraphicPrimitive{
 	 */
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(new Color(0, 255, 0));
-		g.drawRect(x, y, width, height);
+		g.setColor(new Color(r, gr, b));
+		if(getFilled()){
+			g.fillRect(x, y, width, height);
+		}else{
+			g.drawRect(x, y, width, height);
+		}
 		if(getHovered()){
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(10, 10, 10));
@@ -83,8 +88,9 @@ public class Rectangle extends GraphicPrimitive{
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(255, 0, 0));
 			Graphics2D g2 = (Graphics2D) g;
-	        g2.setStroke(new BasicStroke(3));
+	        g2.setStroke(new BasicStroke(2));
 			g2.drawRect((int)bounds.getX(),(int) bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
+			g2.setStroke(new BasicStroke(1));
 		}
 	}
 
@@ -95,6 +101,17 @@ public class Rectangle extends GraphicPrimitive{
 	public GraphicPrimitive clone() {
 		// TODO Auto-generated method stub
 		return new Rectangle(x,y,x+width-1,y+height-1);
+	}
+
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#setColor(int, int, int)
+	 */
+	@Override
+	public void setColor(int r, int g, int b) {
+		this.r = r;
+		this.gr = g;
+		this.b = b;
+		
 	}
 
 }

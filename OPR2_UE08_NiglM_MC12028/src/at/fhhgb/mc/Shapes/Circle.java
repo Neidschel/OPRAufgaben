@@ -15,6 +15,9 @@ import java.awt.Rectangle;
 public class Circle extends GraphicPrimitive{
 	
 	int x, y,x2,y2, r;
+	private int re = 255;
+	private int gr = 255;
+	private int b = 0;
 	
 	/**
 	 * The constructor of Circle which get's the necessary points for drawing this circle.
@@ -66,8 +69,12 @@ public class Circle extends GraphicPrimitive{
 	 */
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(new Color(255, 255, 0));
-		g.drawOval(x-r, y-r, r*2, r*2);
+		g.setColor(new Color(re, gr, b));
+		if(getFilled()){
+			g.fillOval(x-r, y-r, r*2, r*2);
+		}else{
+			g.drawOval(x-r, y-r, r*2, r*2);
+		}
 		if(getHovered()){
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(10, 10, 10));
@@ -77,8 +84,9 @@ public class Circle extends GraphicPrimitive{
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(255, 0, 0));
 			Graphics2D g2 = (Graphics2D) g;
-	        g2.setStroke(new BasicStroke(3));
+	        g2.setStroke(new BasicStroke(2));
 			g2.drawRect((int)bounds.getX(),(int) bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
+			g2.setStroke(new BasicStroke(1));
 		}
 		
 	}
@@ -89,6 +97,16 @@ public class Circle extends GraphicPrimitive{
 	@Override
 	public GraphicPrimitive clone() {
 		return new Circle(x,y,x2,y2);
+	}
+	
+	/* (non-Javadoc)
+	 * @see at.fhhgb.mc.Shapes.GraphicPrimitive#setColor(int, int, int)
+	 */
+	public void setColor(int r, int g, int b) {
+		this.re = r;
+		this.gr = g;
+		this.b = b;
+		
 	}
 
 }

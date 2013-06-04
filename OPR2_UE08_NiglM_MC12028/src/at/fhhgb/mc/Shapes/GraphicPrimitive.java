@@ -17,6 +17,8 @@ public abstract class GraphicPrimitive {
 	private boolean selected = false;
 	// checks if the object is hovered
 	private boolean hovered = false;
+	// checks if the object is hovered
+	private boolean filled = false;
 
 	/*
 	 * (non-Javadoc)
@@ -57,11 +59,28 @@ public abstract class GraphicPrimitive {
 	 * @return a clone of that graphic primitive object
 	 */
 	public abstract GraphicPrimitive clone();
+	
+	public void setFilled(boolean filled) {
+		this.filled = filled;
+	}
 
+	public boolean getFilled() {
+		return filled;
+	}
+	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
-
+	
+	/**
+	 * Sets the color of this shape to a new RGB value
+	 * 
+	 * @param r the red value
+	 * @param g the green value
+	 * @param b the blue value
+	 */
+	public abstract void setColor(int r, int g, int b);
+	
 	public boolean getSelected() {
 		return selected;
 	}
