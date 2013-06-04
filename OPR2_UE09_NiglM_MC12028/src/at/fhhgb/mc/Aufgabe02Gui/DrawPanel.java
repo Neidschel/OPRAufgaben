@@ -97,28 +97,28 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * )
 			 */
 			public void mousePressed(MouseEvent e) {
-				Iterator<GraphicPrimitive> iter = shapes.iterator();
-				GraphicPrimitive g1;
-				while (iter.hasNext()) {
-					try {
-						g1 = iter.next();
-						if (g1.getBoundingBox()
-								.contains(e.getX(), e.getY())
-								&& g1.getSelected()) {
-							
-							dx = e.getX();
-							dy = e.getY();
-							System.out.println(dx);
-
-						} else {
-							g1.setSelected(false);
-							g1.setHovered(false);
-						}
-					} catch (InvalidAccessException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+				dx = e.getX();
+				dy = e.getY();
+//				Iterator<GraphicPrimitive> iter = shapes.iterator();
+//				GraphicPrimitive g1;
+//				while (iter.hasNext()) {
+//					try {
+//						g1 = iter.next();
+//						if (g1.getBoundingBox()
+//								.contains(e.getX(), e.getY())
+//								&& g1.getSelected()) {
+//							
+//						
+//
+//						} else {
+//							g1.setSelected(false);
+//							g1.setHovered(false);
+//						}
+//					} catch (InvalidAccessException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//				}
 				repaint();
 			}
 
@@ -160,27 +160,32 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * .MouseEvent)
 			 */
 			public void mouseDragged(MouseEvent e) {
-				System.out.println("dragged");
 				Iterator<GraphicPrimitive> iter = shapes.iterator();
 				GraphicPrimitive g1;
+				mouseX = e.getX();
+				mouseY = e.getY();
+				status = "(" + e.getX() + ", " + e.getY() + ")";
 				while (iter.hasNext()) {
 
 					try {
 						g1 = iter.next();
 						if (g1.getBoundingBox()
 								.contains(e.getX(), e.getY())
-								&& g1.getSelected()) {
+								&& g1.getSelected() || g1.getHovered()) {
 
 							g1.move((e.getX() - dx), (e.getY() - dy));
-							dx = e.getX();
-							dy = e.getY();
+							status = "(" + e.getX() + ", " + e.getY() + ")"+g1.toString();
+						
 						}
 					} catch (InvalidAccessException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
 
 				}
+				dx = e.getX();
+				dy = e.getY();
 				repaint();
 			}
 
@@ -192,7 +197,6 @@ public class DrawPanel extends Panel implements ActionListener {
 			 * MouseEvent)
 			 */
 			public void mouseMoved(MouseEvent e) {
-				System.out.println("moving");
 				status = "(" + e.getX() + ", " + e.getY() + ")";
 				mouseX = e.getX();
 				mouseY = e.getY();
