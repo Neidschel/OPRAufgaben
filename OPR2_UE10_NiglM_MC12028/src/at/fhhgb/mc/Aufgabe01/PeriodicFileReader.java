@@ -12,11 +12,11 @@ import at.fhhgb.mc.Observable.MyObserver;
 /**
  * Class that reads the contents line-wise from a specified file
  * 
- * @Todo: let PeriodicFileReader extend your own Observable class
  * @author Paul Latzelsperger
- * 
+ * @author Michael Nigl (implemented the TODOs)
+ * @version 1.1
  */
-public class PeriodicFileReader extends MyObservable implements	Runnable {
+public class PeriodicFileReader extends MyObservable<String> implements Runnable {
 
 	private static String filename = "/at/fhhgb/mc/Aufgabe01/dummydata.log";
 
@@ -57,7 +57,6 @@ public class PeriodicFileReader extends MyObservable implements	Runnable {
 			// as long as there is still content left to be read...
 			while ((line = rdr.readLine()) != null && m_running) {
 				if (!line.equals("")) {
-					// TODO: notify all observers
 					notifyObservers(line);
 				}
 				// yield for a little while
