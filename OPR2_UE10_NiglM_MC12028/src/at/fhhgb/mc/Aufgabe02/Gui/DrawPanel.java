@@ -77,6 +77,7 @@ public class DrawPanel extends Panel implements ActionListener,
 						g1 = iter.next();
 						if (g1.getBoundingBox().contains(e.getX(), e.getY())) {
 							g1.setSelected(true);
+							repaint();
 							dx = e.getX();
 							dy = e.getY();
 

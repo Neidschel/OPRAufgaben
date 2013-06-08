@@ -81,8 +81,9 @@ public class Triangle extends GraphicPrimitive{
 			java.awt.Rectangle bounds = getBoundingBox();
 			g.setColor(new Color(255, 0, 0));
 			Graphics2D g2 = (Graphics2D) g;
-	        g2.setStroke(new BasicStroke(3));
+	        g2.setStroke(new BasicStroke(2));
 			g2.drawRect((int)bounds.getX(),(int) bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
+	        g2.setStroke(new BasicStroke(1));
 		}
 		
 	}
