@@ -384,7 +384,9 @@ public class DoubleLinkedList {
 	public boolean search(int val) { 
 		
 		DLNode n = head;
-		
+		if(head == null){
+			return false;
+		}
 		while(n!=null){
 			
 			if(n.getVal() == val){

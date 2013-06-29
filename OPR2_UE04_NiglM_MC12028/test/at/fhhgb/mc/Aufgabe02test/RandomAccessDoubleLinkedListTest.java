@@ -104,6 +104,13 @@ public class RandomAccessDoubleLinkedListTest {
 		assertEquals(false,radll.contains(8));
 	}
 	
+	//test contains empty
+	@Test
+	public void testContainsEmpty() {
+		RandomAccessDoubleLinkedList radll = new RandomAccessDoubleLinkedList();
+		assertEquals(false,radll.contains(8));
+	}
+	
 	//test remove at
 	@Test
 	public void testRemoveAt() {
@@ -161,6 +168,13 @@ public class RandomAccessDoubleLinkedListTest {
 		radll.removeAll(2);
 		assertEquals(false,radll.contains(2));
 	}
+	
+	//test remove all empty
+		@Test
+		public void testRemoveAllEmpty() {
+			radll.clear();
+			assertEquals(false,radll.removeAll(2));
+		}
 	
 	//test remove all dummys
 	@Test
